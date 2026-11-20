@@ -494,6 +494,115 @@
   text-transform: uppercase;
 }
 
+.mag.mag--letter {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.mag-letter__copy {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: clamp(0.85rem, 2.6vh, 2.4rem) clamp(3rem, 6vw, 7rem);
+  background: var(--color-gray);
+}
+
+.mag-letter__sheet {
+  width: 100%;
+  max-width: 65ch;
+}
+
+.issue-layout.mag.mag--letter h1 {
+  margin-top: 0.45rem !important;
+  font-size: clamp(1.9rem, 4.5vh, 3.35rem);
+  line-height: 0.96;
+}
+
+.issue-layout.mag.mag--letter h1 span {
+  display: block;
+}
+
+.mag-letter__stand {
+  margin: 0.55rem 0 0 !important;
+  max-width: 36ch;
+  font-family: var(--font-heading);
+  font-size: clamp(1.12rem, 2.15vh, 1.45rem);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.28;
+}
+
+.mag-letter__body {
+  margin-top: 0.85rem;
+  font-size: clamp(0.875rem, 1.9vh, 1.125rem);
+  line-height: 1.55;
+}
+
+.mag-letter__body p {
+  margin: 0 0 0.55em;
+}
+
+.mag-letter__body .mag-drop::first-letter {
+  font-size: 3.4rem;
+  line-height: 0.72;
+}
+
+.mag-letter__sheet .mag-sign {
+  margin: 0.15rem 0 0;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--color-line);
+  font-size: clamp(1.55rem, 2.8vh, 2.05rem);
+  line-height: 1;
+}
+
+.mag-letter__sheet .mag-sign span {
+  margin-top: 0.4rem;
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.mag-letter__flag {
+  margin: 0.45rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.mag-letter__media {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--color-light);
+}
+
+.mag-letter__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+}
+
+.mag-letter__media p {
+  position: absolute;
+  right: 0.8rem;
+  bottom: 0.7rem;
+  left: 0.8rem;
+  margin: 0;
+  color: var(--color-on-dark);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 .ad {
   position: relative;
   height: 100%;
@@ -676,6 +785,7 @@
   .mag--quote,
   .mag-cover,
   .mag-framed,
+  .mag--letter,
   .mag-adpage,
   .mag-brands,
   .mag-people,
@@ -691,6 +801,40 @@
   .mag--banner {
     display: flex;
     flex-direction: column;
+  }
+
+  .mag.mag--letter {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+
+  .mag-letter__media {
+    order: -1;
+    flex: none;
+    width: 100%;
+    height: 38vh;
+    min-height: 14rem;
+    max-height: 22rem;
+  }
+
+  .mag-letter__copy {
+    align-items: stretch;
+    overflow: visible;
+    padding: 1.75rem 1.25rem 2.5rem;
+  }
+
+  .mag-letter__sheet {
+    max-width: 40rem;
+  }
+
+  .issue-layout.mag.mag--letter h1 {
+    font-size: clamp(2.2rem, 8vw, 3.2rem);
+  }
+
+  .mag-letter__body {
+    font-size: 1.0625rem;
   }
 
   .mag-opener__media,
