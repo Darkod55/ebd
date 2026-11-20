@@ -346,7 +346,8 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
             if (is_string($from) && isset($streams[$from], $catalog[$from])) {
                 $piece = $catalog[$from];
                 $cursor = $cursors[$from] ?? 0;
-                $isFirst = $cursor === 0;
+                $titleOnly = ($spread['layout'] ?? '') === 'article-cover';
+                $showTitle = $cursor === 0 && ! isset($openers[$from]);
                 $budget = (int) ($spread['words'] ?? 220);
                 $blocks = $streams[$from];
                 $quote = null;
@@ -368,29 +369,32 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
                 $leave = (int) ($spread['leave'] ?? 0);
                 $taken = [];
                 $count = 0;
-                while ($cursor < count($blocks)) {
-                    $words = str_word_count(wp_strip_all_tags((string) $blocks[$cursor]['text']));
-                    $after = self::wordsLeft($blocks, $cursor + 1);
-                    if ($taken !== [] && $leave > 0 && $after < $leave) {
-                        break;
-                    }
-                    if ($taken !== [] && $leave === 0 && ($count + $words) > $budget) {
-                        break;
-                    }
-                    $taken[] = $blocks[$cursor];
-                    $count += $words;
-                    $cursor++;
-                    if ($count >= $budget) {
-                        break;
+                $started = $cursor;
+                if (! $titleOnly) {
+                    while ($cursor < count($blocks)) {
+                        $words = str_word_count(wp_strip_all_tags((string) $blocks[$cursor]['text']));
+                        $after = self::wordsLeft($blocks, $cursor + 1);
+                        if ($taken !== [] && $leave > 0 && $after < $leave) {
+                            break;
+                        }
+                        if ($taken !== [] && $leave === 0 && ($count + $words) > $budget) {
+                            break;
+                        }
+                        $taken[] = $blocks[$cursor];
+                        $count += $words;
+                        $cursor++;
+                        if ($count >= $budget) {
+                            break;
+                        }
                     }
                 }
 
                 $cursors[$from] = $cursor;
-                if ($isFirst) {
+                if ($showTitle || $titleOnly) {
                     $openers[$from] = (string) $spread['slug'];
-                    if (isset($taken[0]) && ($taken[0]['type'] ?? '') === 'p') {
-                        $taken[0]['drop'] = true;
-                    }
+                }
+                if ($started === 0 && isset($taken[0]) && ($taken[0]['type'] ?? '') === 'p') {
+                    $taken[0]['drop'] = true;
                 }
 
                 $cols = 2;
@@ -409,12 +413,12 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
                     'blocks' => $taken,
                     'columns' => self::splitColumns($taken, $cols),
                     'quote' => $quote,
-                    'continued' => ! $isFirst,
-                    'show_title' => $isFirst,
-                    'heading' => $isFirst ? (string) $piece['title'] : (string) ($piece['kicker'] ?? 'Continued'),
-                    'dek' => $isFirst ? (string) ($piece['standfirst'] ?? '') : '',
+                    'continued' => ! $showTitle,
+                    'show_title' => $showTitle,
+                    'heading' => $showTitle ? (string) $piece['title'] : (string) ($piece['kicker'] ?? 'Continued'),
+                    'dek' => $showTitle ? (string) ($piece['standfirst'] ?? '') : '',
                     'kicker' => $data['kicker'] ?? (string) ($piece['kicker'] ?? ''),
-                    'byline' => $isFirst ? (string) ($piece['byline'] ?? '') : '',
+                    'byline' => $showTitle ? (string) ($piece['byline'] ?? '') : '',
                     'role' => (string) ($piece['role'] ?? ''),
                     'words' => $allWords,
                     'single_url' => $cursor >= count($streams[$from])
@@ -422,7 +426,7 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
                         : '',
                 ]);
 
-                $spread['title'] = $isFirst
+                $spread['title'] = $showTitle
                     ? (string) $piece['title']
                     : (string) ($piece['kicker'] ?? 'Continued').' · continued';
                 $spread['article'] = ['read' => $from, 'label' => ''];
