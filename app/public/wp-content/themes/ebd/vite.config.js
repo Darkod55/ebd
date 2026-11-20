@@ -9,7 +9,7 @@ if (! process.env.APP_URL) {
 }
 
 export default defineConfig({
-  base: '/wp-content/themes/elita-konsalting/public/build/',
+  base: '/wp-content/themes/ebd/public/build/',
   plugins: [
     tailwindcss(),
     laravel({
