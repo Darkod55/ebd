@@ -107,14 +107,30 @@ return [
             'placeholder' => true,
             'data' => [
                 'flow' => [100, 103],
-                'notes' => [
-                    '',
-                    'Placeholder. Books, paddock radio and a race-weekend feed now carry the same weekend to people who will never hold a ticket. The luxury, for them, is the access. A paddock pass is still rare. A season of films is not. Hospitality, a named grandstand and a film deal are three prices for one weekend. The film and the fence now sell the same race to different rooms. One of those rooms is cheap. The other is still a luxury.',
+                'tall' => [
+                    [
+                        'Placeholder. The grandstand and the film now sell the same Sunday.',
+                        'One ticket is still dear. The other is a subscription.',
+                    ],
+                    [
+                        'The paddock pass was the old luxury. A season of films is the new one, and they are not the same purchase.',
+                    ],
                 ],
-                'figure' => ['file' => 'Still_Grandstand_Placeholder_EBD_Magazine_2026.webp', 'alt' => 'A packed stadium under floodlights.', 'caption' => 'Placeholder photograph. Unsplash.', 'position' => 'center 40%'],
+                'notes' => [
+                    [],
+                    [
+                        'Placeholder. Books, paddock radio and a race-weekend feed now carry the weekend to people who will never hold a ticket.',
+                        'A paddock pass is still rare. A season of films is not.',
+                        'Hospitality and a film deal are two prices for one race.',
+                        'One of those rooms is cheap. The other is still a luxury.',
+                    ],
+                ],
+                'figure' => ['file' => 'Still_Circuit_Placeholder_EBD_Magazine_2026.webp', 'alt' => 'An empty circuit curving past a grandstand.', 'caption' => 'Placeholder photograph. Pexels.', 'position' => 'center 60%'],
                 'stats' => [
                     ['kicker' => 'Twenty-two', 'line' => 'Drivers on the grid'],
                     ['kicker' => 'Since 1950', 'line' => 'The pinnacle of motorsport'],
+                    ['kicker' => 'Seventy-six', 'line' => 'Years on the calendar'],
+                    ['kicker' => 'Sell-out', 'line' => 'A full grandstand'],
                 ],
             ],
         ],
@@ -126,9 +142,17 @@ return [
             'words' => 150,
             'placeholder' => true,
             'data' => [
+                'tall' => [
+                    'Placeholder. What the series sold was not a cheaper ticket. It was a way to stand in the crowd without leaving the room.',
+                    'The grandstand is still the luxury. The film is how everyone else arrives at the same weekend.',
+                ],
                 'aside' => [
                     'kicker' => 'Placeholder · The Drive to Survive effect',
-                    'text' => 'A placeholder sidebar. Grandstands, hospitality and the ticket have become part of the luxury, not a sideshow to the racing. A seat with a name on it is now sold the way a suite is sold.',
+                    'lines' => [
+                        'A placeholder sidebar. Grandstands, hospitality and the ticket have become part of the luxury, not a sideshow to the racing.',
+                        'A seat with a name on it is now sold the way a suite is sold.',
+                        'The crowd in the film and the crowd on the fence are no longer the same people.',
+                    ],
                 ],
                 'band' => [
                     ['kicker' => 'Sell-out', 'line' => 'Grandstands as a luxury product'],
@@ -153,9 +177,23 @@ return [
             'data' => [
                 'flow' => [146, 160],
                 'figure' => ['file' => 'Still_Workshop_Placeholder_EBD_Magazine_2026.webp', 'alt' => 'Work at a lathe.', 'caption' => 'Placeholder photograph. Unsplash.', 'position' => 'center 30%'],
+                'tall' => [
+                    [
+                        'Placeholder. A calendar that flies less is a quiet luxury: the same races, fewer miles, a smaller carbon bill, and the same trophy at the end of it.',
+                    ],
+                    [
+                        'The garage door is more open than it was. The grid is not, and that difference is the whole argument.',
+                    ],
+                ],
                 'notes' => [
-                    'Placeholder. The 500 tonnes saved in one European run is one line in a longer account: calendar, freight, fuel, and the road car that inherits the experiment.',
-                    'Placeholder. Inclusion here is not a slogan beside the garage. It is a seat that fits, a series that is watched, and a job that used to be offered to one kind of candidate.',
+                    [
+                        'Placeholder. The 500 tonnes saved in one European run is one line in a longer account.',
+                        'Calendar, freight, fuel, and the road car that inherits the experiment.',
+                    ],
+                    [
+                        'Placeholder. Inclusion here is not a slogan beside the garage.',
+                        'It is a seat that fits, a series that is watched, and a job that used to be offered to one kind of candidate.',
+                    ],
                 ],
                 'band' => [
                     ['kicker' => '500 tonnes', 'line' => 'CO2e saved in one European run'],
@@ -172,6 +210,15 @@ return [
             'words' => 182,
             'placeholder' => true,
             'data' => [
+                'tall' => [
+                    [
+                        'Placeholder. Fashion did not replace the racing. It gave the weekend a second audience, and that audience bought a ticket of its own.',
+                    ],
+                    [
+                        'Placeholder. A clothing line, a junior seat and a film deal now travel with the car. The scarce thing is still a place on the grid.',
+                        'The rest of the weekend has learned how to be sold.',
+                    ],
+                ],
                 'flow' => [90, 92],
                 'figure' => ['file' => 'Portrait_Wide_Thiemo_Albers-Daly_Motorsport_Journalist_EBD_Magazine_2026.webp', 'alt' => 'Thiemo Albers-Daly.', 'caption' => 'Thiemo Albers-Daly. Photograph supplied with the manuscript.', 'position' => 'center 25%'],
                 'qa' => [
@@ -181,6 +228,7 @@ return [
                 ],
                 'bio' => [
                     'name' => 'Thiemo Albers-Daly',
+                    'photo' => 'Portrait_Thiemo_Albers-Daly_Motorsport_Journalist_EBD_Magazine_2026.webp',
                     'text' => 'Placeholder biography. Thiemo Albers-Daly is a freelance motorsport journalist and PR consultant. This note was written for the layout. It is not a supplied biography.',
                 ],
             ],
@@ -195,7 +243,15 @@ return [
             'placeholder' => true,
             'data' => [
                 'editorial' => true,
-                'note' => 'Placeholder. The last luxury is not the suite. It is the choice: a sofa, a grandstand, a garage, or the grid itself, each of them still recognisably the same sport. Seventy-six years on, the ticket is dearer and the audience is wider, and neither fact has cancelled the other. The suite, the sofa and the pit wall are three ways of watching, and the sport now needs all three. What used to be one expensive afternoon is now a season you can enter at several prices.',
+                'notes' => [
+                    'Placeholder. The last luxury is not the suite. It is the choice: a sofa, a grandstand, a garage, or the grid itself.',
+                    'Seventy-six years on, the ticket is dearer and the audience is wider, and neither fact has cancelled the other.',
+                    'The suite, the sofa and the pit wall are three ways of watching, and the sport now needs all three.',
+                    'What used to be one expensive afternoon is now a season you can enter at several prices.',
+                ],
+                'tall' => [
+                    'Placeholder. The luxury that lasted is the one that could be entered from more than one door.',
+                ],
             ],
         ],
         [

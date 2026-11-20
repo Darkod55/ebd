@@ -2,7 +2,7 @@
 
 Optimised WebP and AVIF files in this folder. Originals are not in the repo.
 
-Unsplash photographs are used under the [Unsplash Licence](https://unsplash.com/license). They are placeholders (`placeholder: true` in `app/issues/issue-01.php` or `app/issues/ads.php`), not pictures of the people or houses named beside them.
+Unsplash photographs are used under the [Unsplash Licence](https://unsplash.com/license). The circuit photograph is from Pexels, under the [Pexels Licence](https://www.pexels.com/license/). They are placeholders (`placeholder: true` in `app/issues/issue-01.php` or `app/issues/ads.php`), not pictures of the people or houses named beside them.
 
 | File | Source |
 | --- | --- |
@@ -26,7 +26,7 @@ Unsplash photographs are used under the [Unsplash Licence](https://unsplash.com/
 | `Still_Workshop_Placeholder_EBD_Magazine_2026` | https://images.unsplash.com/photo-1558618666-fcd25c85cd64 |
 | `Still_Hospitality_Placeholder_EBD_Magazine_2026` | https://images.unsplash.com/photo-1470337458703-46ad1756a187 |
 | `Still_Skyline_Placeholder_EBD_Magazine_2026` | https://images.unsplash.com/photo-1514565131-fce0801e5785 |
-| `Still_Grandstand_Placeholder_EBD_Magazine_2026` | https://images.unsplash.com/photo-1522778119026-d647f0596c20 |
+| `Still_Circuit_Placeholder_EBD_Magazine_2026` | https://www.pexels.com/photo/an-empty-race-track-10106451/ |
 
 Supplied by the client, resized here. Not Unsplash.
 

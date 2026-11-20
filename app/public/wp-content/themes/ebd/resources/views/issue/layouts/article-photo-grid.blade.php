@@ -6,14 +6,17 @@
   </header>
   <div class="mag-photos__board">
     <div class="mag-photos__main">
-    <div class="mag-tri__text mag-photos__copy">
+    <div class="mag-tri__text mag-fill mag-photos__copy">
       @if (! empty($data['aside']))
         <p class="mag-photos__label" data-placeholder="true">{{ $data['aside']['kicker'] ?? '' }}</p>
       @endif
       @include('partials.issue.mag-blocks', ['blocks' => $data['blocks'] ?? []])
-      @if (! empty($data['aside']['text']))
-        <p class="mag-photos__note" data-placeholder="true">{{ $data['aside']['text'] }}</p>
-      @endif
+      @foreach ($data['aside']['lines'] ?? [] as $line)
+        <p data-placeholder="true">{{ $line }}</p>
+      @endforeach
+      @foreach ($data['tall'] ?? [] as $line)
+        <p class="mag-tall" data-placeholder="true">{{ $line }}</p>
+      @endforeach
     </div>
     <div class="mag-photos__grid">
       @foreach ($data['figures'] ?? [] as $figure)
@@ -22,7 +25,7 @@
     </div>
     </div>
     @if (! empty($data['band']))
-      <div class="mag-pair__band" data-placeholder="true">
+      <div class="mag-strip mag-strip--3" data-placeholder="true">
         @foreach ($data['band'] as $stat)
           <p>
             <strong>{{ $stat['kicker'] ?? '' }}</strong>

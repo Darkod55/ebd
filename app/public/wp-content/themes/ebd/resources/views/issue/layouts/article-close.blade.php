@@ -19,24 +19,29 @@
   </header>
   <div class="mag-close__board">
     <div class="mag-close__main">
-    <div class="mag-tri__text mag-close__col">
+    <div class="mag-tri__text mag-fill mag-close__col">
       @include('partials.issue.mag-blocks', ['blocks' => $bins[0]])
+      @foreach ($data['tall'][0] ?? [] as $note)
+        <p class="mag-tall" data-placeholder="true">{{ $note }}</p>
+      @endforeach
     </div>
-    <div class="mag-tri__text mag-close__col">
+    <div class="mag-tri__text mag-fill mag-close__col">
       @include('partials.issue.mag-blocks', ['blocks' => $bins[1]])
-      @if (! empty($data['qa']))
-        <div class="mag-close__qa" data-placeholder="true">
-          @foreach ($data['qa'] as $item)
-            <p><strong>{{ $item['q'] }}</strong> {{ $item['a'] }}</p>
-          @endforeach
-        </div>
-      @endif
+      @foreach ($data['qa'] ?? [] as $item)
+        <p class="mag-close__qa" data-placeholder="true"><strong>{{ $item['q'] }}</strong> {{ $item['a'] }}</p>
+      @endforeach
+      @foreach ($data['tall'][1] ?? [] as $note)
+        <p class="mag-tall" data-placeholder="true">{{ $note }}</p>
+      @endforeach
     </div>
     @include('partials.issue.editorial-figure', ['figure' => $data['figure'] ?? null, 'slot' => 'portrait'])
     </div>
     @if (! empty($data['bio']))
       <aside class="mag-close__bio" data-placeholder="true">
         <p class="mag-close__mark" aria-hidden="true"></p>
+        @if (! empty($data['bio']['photo']))
+          <img src="{{ \App\Issue::image($data['bio']['photo']) }}" alt="{{ $data['bio']['name'] ?? '' }}">
+        @endif
         <div>
           <p class="mag-close__who">{{ $data['bio']['name'] ?? '' }}</p>
           <p>{{ $data['bio']['text'] ?? '' }}</p>

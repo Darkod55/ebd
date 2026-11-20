@@ -20,21 +20,27 @@
   <div class="mag-feat__board">
     <div class="mag-feat__main">
     @include('partials.issue.editorial-figure', ['figure' => $data['figure'] ?? null, 'slot' => 'lead'])
-    <div class="mag-tri__text mag-feat__col">
+    <div class="mag-tri__text mag-fill mag-feat__col">
       @include('partials.issue.mag-blocks', ['blocks' => $bins[0]])
-      @if (! empty($data['notes'][0]))
-        <p data-placeholder="true">{{ $data['notes'][0] }}</p>
-      @endif
+      @foreach ($data['notes'][0] ?? [] as $note)
+        <p data-placeholder="true">{{ $note }}</p>
+      @endforeach
+      @foreach ($data['tall'][0] ?? [] as $note)
+        <p class="mag-tall" data-placeholder="true">{{ $note }}</p>
+      @endforeach
     </div>
-    <div class="mag-tri__text mag-feat__col">
+    <div class="mag-tri__text mag-fill mag-feat__col">
       @include('partials.issue.mag-blocks', ['blocks' => $bins[1]])
-      @if (! empty($data['notes'][1]))
-        <p data-placeholder="true">{{ $data['notes'][1] }}</p>
-      @endif
+      @foreach ($data['notes'][1] ?? [] as $note)
+        <p data-placeholder="true">{{ $note }}</p>
+      @endforeach
+      @foreach ($data['tall'][1] ?? [] as $note)
+        <p class="mag-tall" data-placeholder="true">{{ $note }}</p>
+      @endforeach
     </div>
     </div>
     @if (! empty($data['stats']))
-      <div class="mag-feat__stats">
+      <div class="mag-strip" data-placeholder="true">
         @foreach ($data['stats'] as $stat)
           <p data-placeholder="true">
             <strong>{{ $stat['kicker'] ?? '' }}</strong>

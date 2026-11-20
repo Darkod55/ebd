@@ -1120,7 +1120,7 @@ body.issue-reader:has(.mag-f1) #issue-stage {
   min-height: 0;
   flex: 1;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 0.85rem;
 }
 
 .mag-feat__main,
@@ -1128,6 +1128,8 @@ body.issue-reader:has(.mag-f1) #issue-stage {
 .mag-close__main,
 .mag-pair__main {
   display: grid;
+  flex: 1;
+  min-height: 0;
   gap: 0.85rem 1.15rem;
   align-items: stretch;
 }
@@ -1158,8 +1160,33 @@ body.issue-reader:has(.mag-f1) #issue-stage {
 .mag-pair__col,
 .mag-feat__col,
 .mag-close__col,
-.mag-photos__copy {
+.mag-photos__copy,
+.mag-fill {
   min-height: 0;
+  height: 100%;
+}
+
+.mag-fill {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.mag-tri__text.mag-fill > p,
+.mag-tri__text.mag-fill > blockquote,
+.mag-tri__text.mag-fill > div {
+  margin: 0;
+}
+
+.mag-tall {
+  display: none;
+}
+
+@media (min-height: 800px) {
+  .mag-fill .mag-tall {
+    display: block;
+  }
 }
 
 .mag--editorial .mag-half__copy {
@@ -1175,61 +1202,57 @@ body.issue-reader:has(.mag-f1) #issue-stage {
   line-height: var(--mag-leading);
 }
 
-@media (min-height: 800px) {
-  .mag--editorial .mag-col {
-    line-height: 1.9;
-  }
-
-  .mag-photos__copy {
-    line-height: 1.95;
-  }
-}
 
 .mag--editorial .mag-half__copy h1 {
   font-size: clamp(2.4rem, 5vh, 3.4rem);
 }
 
+.mag--editorial .mag-fill {
+  flex: 1;
+}
+
 .mag--editorial .mag-foot {
-  margin-top: auto;
+  margin-top: 0.85rem;
 }
 
 .mag-feat__main {
   grid-template-columns: 1.15fr 1fr 1fr;
 }
 
-.mag-feat__stats,
-.mag-pair__band {
+.mag-strip {
   display: grid;
-  flex: 1;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.15rem;
-  align-content: center;
-  min-height: 6.75rem;
+  flex: none;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-content: start;
   margin: 0;
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--color-line);
+  padding: 0.65rem 0 0;
+  border-top: 1px solid var(--color-primary);
 }
 
-.mag-pair__band {
+.mag-strip--3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.mag-feat__stats p,
-.mag-pair__band p {
+.mag-strip p {
   margin: 0;
+  padding: 0 0.9rem;
+  border-left: 1px solid var(--color-primary);
 }
 
-.mag-feat__stats strong,
-.mag-pair__band strong {
+.mag-strip p:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.mag-strip strong {
   display: block;
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 4.4vh, 3.15rem);
+  font-size: 1.65rem;
   font-weight: 500;
-  line-height: 0.9;
+  line-height: 1;
 }
 
-.mag-feat__stats span,
-.mag-pair__band span {
+.mag-strip span {
   display: block;
   margin-top: 0.35rem;
   color: var(--color-muted);
@@ -1244,11 +1267,9 @@ body.issue-reader:has(.mag-f1) #issue-stage {
   min-height: 0;
 }
 
-.mag-photos__board > .mag-pair__band {
-  flex: none;
-  min-height: 0;
-  padding-top: 0.7rem;
-  padding-bottom: 0.15rem;
+.mag-photos__board > .mag-strip {
+  padding-top: 0.65rem;
+  padding-bottom: 0;
 }
 
 .mag-photos__grid {
@@ -1292,34 +1313,39 @@ body.issue-reader:has(.mag-f1) #issue-stage {
 
 .mag-close__bio {
   display: grid;
-  flex: 1;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 0.85rem;
-  align-content: center;
-  align-items: start;
-  min-height: 6.5rem;
+  flex: none;
+  grid-template-columns: auto 4.4rem minmax(0, 1fr);
+  gap: 0.85rem 1rem;
+  align-items: center;
   margin: 0;
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--color-line);
+  padding: 0.7rem 0 0;
+  border-top: 1px solid var(--color-primary);
 }
 
 .mag-close__mark {
   width: 0.7rem;
   height: 0.7rem;
-  margin: 0.35rem 0 0;
+  margin: 0;
   background: var(--color-primary);
 }
 
+.mag-close__bio img {
+  width: 4.4rem;
+  height: 5.4rem;
+  object-fit: cover;
+}
+
 .mag-close__who {
-  margin: 0 0 0.25rem;
+  margin: 0 0 0.3rem;
   font-family: var(--font-heading);
-  font-size: 1.45rem;
+  font-size: 1.7rem;
+  font-weight: 500;
   line-height: 1;
 }
 
 .mag-close__bio p {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   line-height: 1.45;
 }
 
@@ -1345,12 +1371,6 @@ body.issue-reader:has(.mag-f1) #issue-stage {
   min-height: 0;
   font-size: var(--mag-body-size);
   line-height: var(--mag-leading);
-}
-
-@media (min-height: 800px) {
-  .mag-tri__text.mag-photos__copy {
-    line-height: 1.95;
-  }
 }
 
 .mag-tri__text p,
@@ -1502,10 +1522,17 @@ body.issue-reader:has(.mag-f1) #issue-stage {
   .mag-close__main,
   .mag-pair__main,
   .mag-photos__grid,
-  .mag-feat__stats,
-  .mag-pair__band {
+  .mag-strip,
+  .mag-fill {
     display: flex;
     flex-direction: column;
+    height: auto;
+    justify-content: flex-start;
+    overflow: visible;
+  }
+
+  .mag-close__bio {
+    grid-template-columns: auto 4.4rem minmax(0, 1fr);
   }
 
   .mag-pair .mag-edit__fig picture {
