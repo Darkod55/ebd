@@ -1,0 +1,48 @@
+/**
+ * Ethical Brand Directory lockup.
+ * Top line sets the width. DIRECTORY sits in a 1px box of that same width.
+ */
+.ebd-logo {
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0;
+  color: currentColor;
+  font-family: 'Raleway', ui-sans-serif, sans-serif;
+  font-weight: 300;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ebd-logo--light {
+  color: #fff;
+}
+
+.ebd-logo--dark {
+  color: var(--color-black, #080808);
+}
+
+.ebd-logo__name,
+.ebd-logo__box {
+  display: block;
+  text-align: center;
+}
+
+.ebd-logo__name {
+  padding-left: 0.42em;
+  font-size: 0.78rem;
+  letter-spacing: 0.42em;
+}
+
+.ebd-logo__box {
+  box-sizing: border-box;
+  margin-top: 0.38rem;
+  padding: 0.38em 0 0.32em 0.28em;
+  border: 1px solid currentColor;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+}

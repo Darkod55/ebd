@@ -239,16 +239,48 @@
   background: linear-gradient(to top, rgb(8 8 8 / 0.82) 0%, rgb(8 8 8 / 0.25) 46%, rgb(8 8 8 / 0.35) 100%);
 }
 
-.mag-cover__mast,
+.mag-cover__brand,
 .mag-cover__lines {
   position: absolute;
-  right: clamp(1rem, 3vw, 2rem);
+  z-index: 2;
   left: clamp(1rem, 3vw, 2rem);
-  z-index: 1;
 }
 
-.mag-cover__mast {
-  top: clamp(0.8rem, 2vh, 1.4rem);
+.mag-cover__brand {
+  top: clamp(0.85rem, 2vh, 1.35rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+}
+
+.mag-cover__brand.is-light,
+.mag-framed__mast.is-light {
+  color: #fff;
+}
+
+.mag-cover__brand.is-dark,
+.mag-framed__mast.is-dark {
+  color: var(--color-black);
+}
+
+.mag-cover__issue {
+  margin: 0;
+  color: inherit;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.mag-framed__mast {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+
+.mag-cover__lines {
+  right: clamp(1rem, 3vw, 2rem);
 }
 
 .mag-cover__ebd,
@@ -302,7 +334,7 @@
   flex: 1;
   align-items: end;
   padding: 1rem;
-  color: var(--color-on-dark);
+  color: var(--color-black);
 }
 
 .mag-framed__stage div {
@@ -582,12 +614,16 @@
     margin-bottom: 0.8rem;
   }
 
-  .mag-cover__mast,
   .mag-cover__lines {
     position: relative;
     right: auto;
     left: auto;
     padding: 1rem;
+  }
+
+  .mag-cover__brand {
+    top: 0.85rem;
+    left: 0.85rem;
   }
 
   .mag-cover {

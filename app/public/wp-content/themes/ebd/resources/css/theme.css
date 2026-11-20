@@ -20,6 +20,7 @@
 /* Outside theme/ so Blockstudio's bridgeTailwindConfig() glob does not re-emit it. */
 @import "./components/mpx-subheading.css";
 @import "./components/contact-fab.css";
+@import "./components/ebd-logo.css";
 
 @source inline("text-primary text-primary-dark text-secondary text-tertiary text-tertiary-light text-gray text-light text-line text-line-strong text-body text-muted text-on-dark text-black text-white");
 @source inline("bg-primary bg-primary-dark bg-secondary bg-tertiary bg-tertiary-light bg-gray bg-light bg-line bg-line-strong bg-body bg-muted bg-on-dark bg-black bg-white");

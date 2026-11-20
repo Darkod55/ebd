@@ -7,11 +7,10 @@
     </picture>
   @endif
   <div class="mag-cover__shade"></div>
-  <header class="mag-cover__mast">
-    <p class="mag-cover__ebd">EBD</p>
-    <p>Ethical Brand Directory Magazine</p>
-    <p>{{ $data['issue_line'] ?? 'Issue 01 | Winter 2026' }}</p>
-  </header>
+  <div @class(['mag-cover__brand', 'is-'.($data['logo'] ?? 'dark')])>
+    <x-ebd-logo :variant="$data['logo'] ?? 'dark'" />
+    <p class="mag-cover__issue">{{ $data['issue_line'] ?? 'Issue 01 | Winter 2026' }}</p>
+  </div>
   <div class="mag-cover__lines">
     <h1 id="issue-spread-title">{{ $data['heading'] ?? 'Show the Love' }}</h1>
     @if (! empty($data['dek']))
