@@ -1,0 +1,48 @@
+---
+description: Ethical Brand Directory Sage theme entry points, Blade, icons, Alpine, helpers
+globs: "**/themes/ebd/**"
+alwaysApply: false
+---
+
+# Ethical Brand Directory theme
+
+Paths below are theme-relative (`app/public/wp-content/themes/ebd/…`). Repo orientation: root `AGENTS.md`. Blocks: `.cursor/rules/blockstudio.mdc` + `BLOCKSTUDIO-7.md`.
+
+## Entry points
+
+| Path | Role |
+| --- | --- |
+| `functions.php` | Composer, Acorn + `ThemeServiceProvider` |
+| `app/setup.php` | Editor Vite CSS/JS, `theme.json` → built asset, menus, FSE off, NavWalker default |
+| `app/includes.php` | Globs helpers → filters → blocks traits, then `Classes/*` |
+| `app/Classes/MpxBlocks.php` | Blockstudio hook wiring |
+| `app/Traits/blocks/trait-blocks.php` | Blade bridge, populate, unwrap, Tailwind bridge, core button restyle |
+| `vite.config.js` | Entries: `app.css`/`app.js`/`editor.css`/`editor.js`; base `/wp-content/themes/ebd/public/build/` |
+| Runtime `theme.json` | Built at `public/build/assets/theme.json` (source in theme root) |
+
+## Blade
+
+- Layouts: `resources/views/layouts/app.blade.php` (default), `app-wide.blade.php` (front).
+- Sections: `header`, `footer`, `sidebar`. Partials under `partials/`. Composers: `app/View/Composers/`.
+- FSE / block templates intentionally off — do not add Blockstudio site templates for layout.
+- Block templates use Acorn `view()->file()`; vars `$a`/`$attributes`, `$b`/`$block`, `$c`/`$context`, `$isEditor`, `$isPreview`. Prefer `{!! !!}` when WP already escaped.
+
+## Icons (dual sprites)
+
+- `components/header-icons.blade.php` — above-fold UI. Included from `sections/header`.
+- `components/footer-icons.blade.php` — full set; **block populate** source (`getSpriteIconOptions()`).
+- Usage: `@svgIcon('name'|w|h)` or `\App\helpers()->getSvg([...])` → `<use href="#icon-{name}">`. New block icons go in **footer-icons**.
+
+## JS / Alpine
+
+- `resources/js/app.js` — Alpine start, `scrolled` body class, partners marquee CSS vars.
+- Header off-canvas + NavWalker dropdowns use Alpine. Walker: `app/Walkers/NavWalker.php` + `Traits/filters/trait-navs.php`.
+- `resources/js/editor.js` — selection body flags for editor-canvas CSS.
+
+## Helpers & ownership
+
+- `\App\helpers()` → `Helpers` singleton.
+- Core `button` / `image` look is owned by Blockstudio extensions + `setup.php` `block_type_metadata` stripping + `moveCoreButtonClassesToLink()`.
+- Match existing patterns; prefer theme utilities. Rebrand via `docs/design-tokens.md`.
+- Logged-out front-end cleanup: `app/Classes/FrontendCleanup.php`. One commented line restores one piece. See the theme `README.md`.
+- Issue reader: `app/issues/issue-01.php` (spread list), `app/Classes/Issue.php` (URLs), `resources/views/issue/layouts/` (one Blade file per layout). Cover is `/issue-01/`. Desktop/laptop (`min-width: 64rem`) is one screen; below that the spread may scroll. Bottom bar is fixed.

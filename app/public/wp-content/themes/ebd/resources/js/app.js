@@ -1,4 +1,5 @@
 import Alpine from 'alpinejs';
+import './issue-reader.js';
 
 window.Alpine = Alpine;
 

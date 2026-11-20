@@ -1,8 +1,8 @@
 # Design tokens — rebrand playbook
 
-> **Project:** Elita Konsalting — landing page (Version 2)
-> **Populated:** 26 Oct 2026 from the approved design (`reference.html` in the handoff package).
-> All values below are measured from the design, not estimated. See **§ Project notes** at the end for values that don't fit this token set.
+> **Project:** Ethical Brand Directory — magazine rebuild (Issue 01) plus a simple brand directory. WordPress is the CMS; the public front end should stay free of WordPress chrome.
+> **Populated:** 20 Nov 2026 from the public CSS on https://ethicalbranddirectory.com/ (read-only; that site was not changed).
+> Colour hexes below are copied from that CSS, not estimated. The current homepage editorial `:root` (`--ebd-*`) is the palette. Astra’s link colour and the Elementor kit are recorded in **§ Project notes** and were not promoted over the homepage tokens. See that section for the audit hexes that do not appear in the live CSS.
 
 ## Order on a new site
 
@@ -22,7 +22,7 @@ On an existing site that already has agent context, you can run this playbook al
 Read docs/design-tokens.md in this theme. For every Active value that is not (pending), write it into the mapped targets (variables.css, typography.css, button sync files). Run palette / type / button sync checklists, then npm run build from the theme directory. Do not invent tokens or button variants that are not listed. Do not reverse-engineer existing clamp() values. (pending) = leave that target unchanged.
 ```
 
-Paths below are theme-relative (`app/public/wp-content/themes/cpj/…`).
+Paths below are theme-relative (`app/public/wp-content/themes/ebd/…`).
 
 ---
 
@@ -45,20 +45,22 @@ Edit values here. Agent maps each key → `variables.css` `@theme static`.
 
 ```text
 # Colours → --color-{name}
-primary: #3D55D6
-primary-dark: #2A3FB0
-secondary: #13183A
-tertiary: #7A3EC8
-tertiary-light: #B79CF0
-gray: #F5F6FB
-light: #EEF1FE
-line: #E3E6F0
-line-strong: #C5CCE8
-body: #3A4058
-muted: #5B627A
-on-dark: #C9D0F2
-white: #fff
-black: #000
+# Sources: homepage editorial :root on ethicalbranddirectory.com (20 Nov 2026),
+# except tertiary / tertiary-light (see the table under this block).
+primary: #c6a46b
+primary-dark: #8d6a38
+secondary: #111111
+tertiary: #f598a4
+tertiary-light: #e8c6c4
+gray: #f6f3ec
+light: #e8e0d4
+line: #e8e0d4
+line-strong: #8a857c
+body: #111111
+muted: #8a857c
+on-dark: #fbfaf6
+white: #fbfaf6
+black: #080808
 
 # Section spacing → --spacing-clamp-*
 spacing-clamp-inline: 24px
@@ -84,29 +86,26 @@ font-size-lead: 17px
 font-size-btn: 16px
 ```
 
-#### What changed and why (Elita)
+#### What changed and why (Ethical Brand Directory)
 
-| Key | Value | Where it's used in the design |
+Hex only. Token **names** are unchanged, so this is not a palette-name sync. Spacing, widths, radius, type scale, and button recipes below are still the starter values — the live homepage was not used to invent new keys.
+
+| Key | Value | Live source (ethicalbranddirectory.com, 20 Nov 2026) |
 | --- | --- | --- |
-| `primary` | `#3D55D6` | Brand blue: buttons, links, icons, CTA band, step borders |
-| `primary-dark` | `#2A3FB0` | **New.** Primary button / link hover |
-| `secondary` | `#13183A` | Ink navy: headings, utility bar, "Финансии и технологија" section, contact box, inverted stage card |
-| `tertiary` | `#7A3EC8` | Brand violet: eyebrow labels, bullet markers |
-| `tertiary-light` | `#B79CF0` | **New.** Eyebrows and ticks on dark (secondary) backgrounds |
-| `gray` | `#F5F6FB` | Alternating light section background, quote box, "Не сте сигурни" strip |
-| `light` | `#EEF1FE` | Icon tiles, avatar circles, booking box |
-| `line` | `#E3E6F0` | **New.** Card borders, dividers, header/footer rules |
-| `line-strong` | `#C5CCE8` | **New.** Input borders, outline-button border |
-| `body` | `#3A4058` | **New.** Default paragraph text |
-| `muted` | `#5B627A` | **New.** Captions, card descriptions, small labels |
-| `on-dark` | `#C9D0F2` | **New.** Body text on `secondary` backgrounds |
-| `spacing-clamp-block-xl` | `104px` | All main content sections (top + bottom) |
-| `spacing-clamp-block` | `64px` | CTA band. (Stats strip uses 48px — see notes) |
-| `width-container` | `1288px` | 1240px content + 24px inline padding each side (border-box) |
-| `width-content` | `760px` | Max width of section intro blocks (eyebrow + H2 + paragraph) |
-| `radius-surface` | `20px` | Cards, form card, testimonial cards, image corners |
-| `padding-surface` / `-lg` | `28px` / `40px` | Service cards / form card and panels |
-| `padding-btn-*` | `13/26`, `10/18` | Main buttons are 52px tall; header button (`btn-sm`) is 44px tall |
+| `primary` | `#c6a46b` | Homepage `--ebd-gold`. Rules, focus, `--ebd-link`. |
+| `primary-dark` | `#8d6a38` | Homepage `--ebd-gold-deep`. Eyebrows on paper. |
+| `secondary` | `#111111` | Homepage `--ebd-ink`. Body and headings. |
+| `tertiary` | `#f598a4` | Astra customizer link colour (`a, .page-title`). The audit’s `#f55b84` does **not** occur in the live CSS. Not the homepage accent — that is gold. |
+| `tertiary-light` | `#e8c6c4` | Elementor kit `--e-global-color-secondary` (dusty blush still served site-wide). |
+| `gray` | `#f6f3ec` | Homepage `--ebd-paper`. Page background. |
+| `light` | `#e8e0d4` | Homepage `--ebd-paper-shade`. |
+| `line` | `#e8e0d4` | Same paper-shade. Homepage rules are mostly `rgba(8, 8, 8, 0.12)` or 1px gold; this token stays a solid hex. |
+| `line-strong` | `#8a857c` | Homepage `--ebd-muted`. |
+| `body` | `#111111` | Homepage `--ebd-ink`. |
+| `muted` | `#8a857c` | Homepage `--ebd-muted`. |
+| `on-dark` | `#fbfaf6` | Homepage `--ebd-white` (cover text). |
+| `white` | `#fbfaf6` | Homepage `--ebd-white`. Warm paper white, not `#fff`. |
+| `black` | `#080808` | Homepage `--ebd-black`. Cover and filled buttons on the live page. |
 
 ### Brand token → CSS variable
 
@@ -146,7 +145,7 @@ When colour **names** change (not only hex):
 
 Hex-only changes: step 1 → agent writes `variables.css` → build.
 
-> **This project adds 7 colour names** (`primary-dark`, `tertiary-light`, `line`, `line-strong`, `body`, `muted`, `on-dark`), so the full palette sync is required (step 3 included). `line` and `line-strong` are also used as `border-*` utilities, so add `border-line` and `border-line-strong` to `@source inline` as well.
+> **The starter added 7 colour names** (`primary-dark`, `tertiary-light`, `line`, `line-strong`, `body`, `muted`, `on-dark`). Those names are already in `theme.css` `@source inline`, including `border-line` and `border-line-strong`. The Ethical Brand Directory pass changed hex values only, so the name-sync steps were not run again.
 
 ---
 
@@ -216,16 +215,16 @@ btn: 16px
 H1 line-height (lg+): 63px
 ```
 
-#### Notes on the type scale (Elita)
+#### Notes on the type scale (Ethical Brand Directory)
 
-- **Fonts:** headings (H1–H4, stat numbers, button-like labels in cards) use **Montserrat** 600/700/800; body uses **Inter** 400/500/600. Both **must include the Cyrillic subset**; the site is in Macedonian. Set them in `fonts.css` and self-host (no Google Fonts requests, for GDPR).
+- **Fonts:** the live homepage sets `--ebd-serif: 'Cormorant Garamond'` and `--ebd-sans: 'Raleway'`, and also requests those families from Google Fonts. This theme self-hosts them (no Google Fonts requests). `--font-heading` is Cormorant Garamond; `--font-sans` is Raleway (already in `resources/fonts/`). The previous heading file, Lora, stays on disk and is no longer referenced. The Active clamp recipes below were **not** rewritten from the live `clamp()` middle terms.
 - **Weights / tracking / leading** (set in `typography.css` alongside sizes):
   - H1: 800, letter-spacing −0.025em, line-height 1.08
   - H2: 700, −0.02em, 1.15
   - H3: 700, normal, 1.3
   - H4: 600–700, normal, 1.4
   - Body line-height: 1.6
-- **Stat numbers** (20+, 7+, МК · ЕУ) are 40px Montserrat 800, a one-off display size; style them as `.h1`-weight with a fixed 40px rather than adding a token.
+- **Stat numbers** on the starter landing page (still in `resources/views/sections/home/`) are a one-off display size. Do not add a token for them. They are not part of the magazine.
 - **H5 / H6** aren't used on this page; left `(pending)`.
 - **Expected agent output** with vmin 768 / vmax 1288, as a cross-check:
   - H1 → `clamp(2.25rem, 0.2192rem + 4.2308vw, 3.625rem)`
@@ -269,7 +268,11 @@ btn-white: bg-white text-secondary / bg-light text-secondary
 
 Legacy aliases: `btn-primary-alt` → `btn-primary`; `btn-outline-primary` → `btn-outline`.
 
-#### Button changes (Elita)
+#### Button changes (Ethical Brand Directory)
+
+Recipes are unchanged. They pick up the hexes above (`btn-primary` is gold on warm white, hover deep gold). The live homepage buttons are square, `#080808` fill, `#fbfaf6` label. That would be a recipe change (`bg-black text-white`); it was not applied, because this pass only replaces colour values.
+
+#### Button changes (starter, still the Active recipes)
 
 | Variant | Status | Used for |
 | --- | --- | --- |
@@ -308,7 +311,7 @@ Modifiers (not colour recipes): `btn-sm`, `btn-full`, `btn-has-icon`.
 5. `npm run build` from theme directory
 
 ```bash
-cd app/public/wp-content/themes/cpj
+cd app/public/wp-content/themes/ebd
 npm run build
 ```
 
@@ -316,21 +319,17 @@ Spot-check: colours in editor palette, `.container` width, buttons (FE + editor 
 
 ---
 
-## Project notes — values outside this token set (Elita)
+## Project notes — values outside this token set (Ethical Brand Directory)
 
-These are used in the design but have **no key in this playbook**, so the agent will not apply them from the Active blocks. Decide per item: add a token to the playbook (then update the mapping tables), or keep it as a documented component-level value.
+These were read off the live site and have **no separate key**, or they disagree with an Active value. The agent does not invent keys for them.
 
-| Value | Where | Suggestion |
+| Value | Where on the live site | What this theme did |
 | --- | --- | --- |
-| **Button radius `12px`** | All rectangular buttons | ⚠️ The playbook says button radius "comes from brand tokens", but the only radius token is `radius-surface` (20px). Applying it as-is would give 20px buttons. Add `radius-btn: 12px`, or accept 20px. |
-| Pill radius `9999px` | CTA-band button, chips, avatar circles, social icons | Use Tailwind `rounded-full`; no token needed |
-| Input radius `10px` | Form fields | Add `radius-input`, or reuse 12px |
-| Large radii `24px` / `28px` | About portrait panel / contact box | Component-level; or round both to `radius-surface` |
-| Small radius `14px` | Icon tiles (48px) | Component-level |
-| Section spacing `48px` | Stats strip under hero | One-off; could use `spacing-clamp-block` (64px) if you're happy with a slightly taller strip |
-| Secondary grey text `#4A5170` | Section intro paragraphs | Very close to `muted`; recommend merging into `muted` (`#5B627A`) or `body` |
-| On-dark muted `#8F98C7` | Utility bar city label, separators | Could be added as `on-dark-muted` |
-| Card shadow `0 12px 32px rgb(19 24 58 / .08)` | Floating elements only | Add a shadow token if the theme supports one |
-| Focus ring `2px solid primary`, offset `2px` | All interactive elements | Global `:focus-visible` style, not a token |
-| `.mw-1000` utility name | `width-content` is now 760px | The class name no longer matches its value; consider renaming to `.mw-content` |
-| Theme path `themes/cpj` | Apply-order and paths sections | Retarget to this project's theme slug via `docs/agent-context.md` |
+| Homepage `--ebd-gold-soft: rgba(198, 164, 107, 0.28)` and `--ebd-line: rgba(8, 8, 8, 0.12)` | Editorial `:root` | Left as notes. Active `line` is the solid paper-shade `#e8e0d4`. |
+| Astra `a { color: #f598a4 }` / hover `#ed1566` | `astra-theme-css-inline-css` | `#f598a4` is `tertiary`. `#ed1566` has no key. Audit blush `#f55b84` is **absent** from the CSS fetched on 20 Nov 2026. |
+| Elementor kit `--e-global-color-primary: #CABB86`, accent `#C9A6A6`, link `#ED2F74` | `post-22092.css` | Older kit, still enqueued. Not copied over the homepage `:root`, except `#e8c6c4` → `tertiary-light`. |
+| Live buttons: radius `0`, fill `#080808`, label `#fbfaf6`, Raleway, uppercase, tracking | Homepage + popup `post-25988.css` | Not a recipe change. `btn-primary` stays `bg-primary`. `radius-surface` stays `20px`. |
+| Live type: Cormorant display, Raleway 300 body, fluid sizes in `--ebd-h1`…`--ebd-h4` | Homepage `:root` | Families swapped in `fonts.css`. Active type recipes were not recalculated. |
+| Google Fonts stylesheet + `fonts.googleapis.com` preconnect | Homepage `<head>` | Not used. Fonts are files under `resources/fonts/`. |
+| `.mw-1000` utility name | Theme `sections.css` | `width-content` is 760px. Class name kept; renaming is out of scope. |
+| Theme path | This file’s path lines | `ebd` (the folder that is actually in the repo). The pushed identity said `elita-konsalting`; that slug is not the theme directory. |

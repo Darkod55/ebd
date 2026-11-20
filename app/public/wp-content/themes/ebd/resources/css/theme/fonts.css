@@ -2,6 +2,9 @@
  * Self-hosted webfonts (resources/fonts/)
  *
  * Relative urls so Vite fingerprints files into public/build/assets/.
+ * No Google Fonts requests. Families match the live homepage
+ * (--ebd-sans: Raleway, --ebd-serif: Cormorant Garamond).
+ * Lora-VariableFont_wght.woff2 remains in resources/fonts/ and is not registered.
  */
 @font-face {
   font-family: 'Raleway';
@@ -12,17 +15,26 @@
 }
 
 @font-face {
-  font-family: 'Lora';
-  src: url('../../fonts/Lora-VariableFont_wght.woff2') format('woff2');
-  font-weight: 200 1000;
+  font-family: 'Cormorant Garamond';
+  src: url('../../fonts/cormorant-garamond-latin-wght-normal.woff2') format('woff2');
+  font-weight: 300 700;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('../../fonts/cormorant-garamond-latin-wght-italic.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: italic;
   font-display: swap;
 }
 
 @theme {
   /**
    * Font families.
+   * Swap these two lines when the real masthead faces arrive.
    */
   --font-sans: 'Raleway', ui-sans-serif, system-ui, sans-serif;
-  --font-heading: 'Lora', ui-serif, Georgia, serif;
+  --font-heading: 'Cormorant Garamond', ui-serif, Georgia, serif;
 }

@@ -1,0 +1,456 @@
+<?php
+
+/**
+ * Issue 01 running order.
+ *
+ * Article spreads name a source (`from`) and a word budget.
+ * Issue::hydrate() pours the manuscript in, whole paragraphs at a time,
+ * and inserts extra two-column spreads when an ending would overflow.
+ * placeholder: true means the picture or the words are standing in.
+ */
+
+return [
+    'title' => 'Issue 01',
+    'spreads' => [
+        [
+            'slug' => 'cover',
+            'title' => 'Cover',
+            'layout' => 'cover-masthead',
+            'placeholder' => true,
+            'thumbnail' => 'Cover_Fashion_Editorial_Placeholder_EBD_Magazine_2026.webp',
+            'data' => [
+                'heading' => 'Show the Love',
+                'dek' => 'Redefining what luxury looks like.',
+                'issue_line' => 'Issue 01 | Winter 2026',
+                'note' => 'Draft cover line. Photograph is a placeholder.',
+                'image' => 'Cover_Fashion_Editorial_Placeholder_EBD_Magazine_2026.webp',
+                'image_alt' => 'Placeholder fashion photograph. Not the Show the Love shoot.',
+                'logo' => 'light',
+                // scrim: dark | light | none. strength is 0–1. panel puts a solid plate behind the lines.
+                'scrim' => 'dark',
+                'scrim_strength' => 0.84,
+                'panel' => false,
+                'lines' => [
+                    ['section' => 'Motorsport', 'text' => 'Formula 1, beyond the glitz — Thiemo Albers-Daly'],
+                    ['section' => 'Family', 'text' => 'Putting family values into practice — Dr. Stacy Feiner'],
+                    ['section' => 'Wealth', 'text' => 'The freedom to choose — Ildiko Markus'],
+                    ['section' => 'Beauty', 'text' => 'Orveda, a beauty editor’s pick — Viorela Coman'],
+                    ['section' => 'Impact', 'text' => 'Making an extraordinary difference — Priscilla Stephan'],
+                ],
+            ],
+        ],
+        [
+            'slug' => 'contents',
+            'title' => 'Contents',
+            'layout' => 'contents-index',
+            'placeholder' => false,
+        ],
+        [
+            'slug' => 'letter',
+            'title' => 'Letter from the Editor',
+            'layout' => 'letter-portrait',
+            'placeholder' => true,
+            'thumbnail' => 'Portrait_Placeholder_Woman_01_EBD_Magazine_2026.webp',
+            'data' => [
+                'kicker' => 'Letter',
+                'heading' => 'Letter from the Editor',
+                'stand' => 'An invitation to look again at what luxury is for.',
+                'image' => 'Portrait_Placeholder_Woman_01_EBD_Magazine_2026.webp',
+                'image_alt' => 'Placeholder portrait. Not a photograph of Roberta Lee.',
+                'image_note' => 'Placeholder portrait',
+                'sign' => 'Roberta Lee',
+                'sign_role' => 'Editor-in-Chief',
+                'flag' => 'Placeholder',
+                'paragraphs' => [
+                    'This letter is a placeholder, written so the first edition can be read in order. It is not Roberta Lee’s own copy, and it will be replaced when her note arrives. I am speaking in the first person only to give the issue a voice at the door. Welcome to Ethical Brand Directory.',
+                    'For a year I have been asking the people who make beautiful things a plain question. What does luxury look like when it has to answer for itself? I do not mean a louder mark. I mean care, made visible in the cloth, in the workshop, and in the decision to leave a place better than we found it. That is the promise of this magazine: redefining what luxury looks like.',
+                    'The features that follow take that question into five rooms. Thiemo Albers-Daly looks at Formula 1 beyond the glitz. Dr. Stacy Feiner writes about putting family values into practice. Ildiko Markus considers the freedom to choose. Viorela Coman, our beauty editor, offers Orveda as her pick. Priscilla Stephan closes the edition on making an extraordinary difference. Five different pieces of work, held to one standard.',
+                    'Please read them slowly. The authors wrote their own words, and this letter is not a substitute for that. I am glad you are here for the first one.',
+                ],
+            ],
+        ],
+        [
+            'slug' => 'formula-1',
+            'from' => 'formula-1',
+            'layout' => 'article-cover',
+            'words' => 0,
+            'placeholder' => true,
+            'thumbnail' => 'Formula_1_Grand_Prix_Race_EBD_Magazine_2026.webp',
+            'data' => [
+                'image' => 'Formula_1_Grand_Prix_Race_EBD_Magazine_2026.webp',
+                'image_alt' => 'Formula 1 cars racing at night beneath a large Heineken 0.0 sign.',
+                'note' => 'Placeholder photograph. Heineken, FIA and F1 marks. Rights unconfirmed.',
+            ],
+        ],
+        [
+            'slug' => 'formula-1-grid',
+            'from' => 'formula-1',
+            'layout' => 'article-three-column-images',
+            'text_cols' => 1,
+            'words' => 281,
+            'placeholder' => true,
+            'data' => [
+                'flow' => [100, 45, 42, 67],
+                'figures' => [
+                    ['slot' => 'top', 'file' => 'Formula_1_Grand_Prix_Race_EBD_Magazine_2026.webp', 'alt' => 'Formula 1 cars racing at night.', 'caption' => 'Placeholder. Heineken, FIA and F1 marks are in the frame. Rights unconfirmed.', 'position' => 'center 100%'],
+                    ['slot' => 'mid', 'file' => 'Still_Night_Wheel_Placeholder_EBD_Magazine_2026.webp', 'alt' => 'A hand on a steering wheel at dusk.', 'caption' => 'Placeholder photograph. Unsplash.'],
+                    ['slot' => 'end', 'file' => 'Still_Workshop_Placeholder_EBD_Magazine_2026.webp', 'alt' => 'A machinist at a lathe.', 'caption' => 'Placeholder photograph. Unsplash.'],
+                ],
+            ],
+        ],
+        [
+            'slug' => 'formula-1-feature',
+            'from' => 'formula-1',
+            'layout' => 'article-feature',
+            'text_cols' => 1,
+            'words' => 203,
+            'placeholder' => true,
+            'data' => [
+                'flow' => [100, 103],
+                'tall' => [
+                    [
+                        'Placeholder. The grandstand and the film now sell the same Sunday.',
+                        'One ticket is still dear. The other is a subscription.',
+                    ],
+                    [
+                        'The paddock pass was the old luxury. A season of films is the new one, and they are not the same purchase.',
+                    ],
+                ],
+                'notes' => [
+                    [],
+                    [
+                        'Placeholder. Books, paddock radio and a race-weekend feed now carry the weekend to people who will never hold a ticket.',
+                        'A paddock pass is still rare. A season of films is not.',
+                        'Hospitality and a film deal are two prices for one race.',
+                        'One of those rooms is cheap. The other is still a luxury.',
+                    ],
+                ],
+                'figure' => ['file' => 'Still_Circuit_Placeholder_EBD_Magazine_2026.webp', 'alt' => 'An empty circuit curving past a grandstand.', 'caption' => 'Placeholder photograph. Pexels.', 'position' => 'center 60%'],
+                'stats' => [
+                    ['kicker' => 'Twenty-two', 'line' => 'Drivers on the grid'],
+                    ['kicker' => 'Since 1950', 'line' => 'The pinnacle of motorsport'],
+                    ['kicker' => 'Seventy-six', 'line' => 'Years on the calendar'],
+                    ['kicker' => 'Sell-out', 'line' => 'A full grandstand'],
+                ],
+            ],
+        ],
+        [
+            'slug' => 'formula-1-photos',
+            'from' => 'formula-1',
+            'layout' => 'article-photo-grid',
+            'text_cols' => 1,
+            'words' => 150,
+            'placeholder' => true,
+            'data' => [
+                'tall' => [
+                    'Placeholder. What the series sold was not a cheaper ticket. It was a way to stand in the crowd without leaving the room.',
+                    'The grandstand is still the luxury. The film is how everyone else arrives at the same weekend.',
+                ],
+                'aside' => [
+                    'kicker' => 'Placeholder · The Drive to Survive effect',
+                    'lines' => [
+                        'A placeholder sidebar. Grandstands, hospitality and the ticket have become part of the luxury, not a sideshow to the racing.',
+                        'A seat with a name on it is now sold the way a suite is sold.',
+                        'The crowd in the film and the crowd on the fence are no longer the same people.',
+                    ],
+                ],
+                'band' => [
+                    ['kicker' => 'Sell-out', 'line' => 'Grandstands as a luxury product'],
+                    ['kicker' => 'At home', 'line' => 'A new audience, same weekend'],
+                    ['kicker' => 'The ticket', 'line' => 'Dear, and still the point'],
+                ],
+                'figures' => [
+                    ['slot' => 'a', 'file' => 'Still_Skyline_Placeholder_EBD_Magazine_2026.webp', 'alt' => 'A city skyline at dusk.', 'caption' => 'Placeholder. Unsplash.'],
+                    ['slot' => 'b', 'file' => 'Still_Hospitality_Placeholder_EBD_Magazine_2026.webp', 'alt' => 'A drink being poured.', 'caption' => 'Placeholder. Unsplash.'],
+                    ['slot' => 'd', 'file' => 'Still_Desert_Road_Placeholder_EBD_Magazine_2026.webp', 'alt' => 'An open road.', 'caption' => 'Placeholder. Unsplash.'],
+                    ['slot' => 'e', 'file' => 'Still_Interior_Detail_Placeholder_EBD_Magazine_2026.webp', 'alt' => 'An interior detail.', 'caption' => 'Placeholder. Unsplash.'],
+                ],
+            ],
+        ],
+        [
+            'slug' => 'formula-1-numbers',
+            'from' => 'formula-1',
+            'layout' => 'article-pair',
+            'text_cols' => 1,
+            'words' => 301,
+            'placeholder' => true,
+            'data' => [
+                'flow' => [146, 160],
+                'figure' => ['file' => 'Still_Workshop_Placeholder_EBD_Magazine_2026.webp', 'alt' => 'Work at a lathe.', 'caption' => 'Placeholder photograph. Unsplash.', 'position' => 'center 30%'],
+                'tall' => [
+                    [
+                        'Placeholder. A calendar that flies less is a quiet luxury: the same races, fewer miles, a smaller carbon bill, and the same trophy at the end of it.',
+                    ],
+                    [
+                        'The garage door is more open than it was. The grid is not, and that difference is the whole argument.',
+                    ],
+                ],
+                'notes' => [
+                    [
+                        'Placeholder. The 500 tonnes saved in one European run is one line in a longer account.',
+                        'Calendar, freight, fuel, and the road car that inherits the experiment.',
+                    ],
+                    [
+                        'Placeholder. Inclusion here is not a slogan beside the garage.',
+                        'It is a seat that fits, a series that is watched, and a job that used to be offered to one kind of candidate.',
+                    ],
+                ],
+                'band' => [
+                    ['kicker' => '500 tonnes', 'line' => 'CO2e saved in one European run'],
+                    ['kicker' => 'HVO100', 'line' => 'Biofuel in the trucks, 2024'],
+                    ['kicker' => 'F1 Academy', 'line' => 'A junior series of its own'],
+                ],
+            ],
+        ],
+        [
+            'slug' => 'formula-1-close',
+            'from' => 'formula-1',
+            'layout' => 'article-close',
+            'text_cols' => 1,
+            'words' => 182,
+            'placeholder' => true,
+            'data' => [
+                'tall' => [
+                    [
+                        'Placeholder. Fashion did not replace the racing. It gave the weekend a second audience, and that audience bought a ticket of its own.',
+                    ],
+                    [
+                        'Placeholder. A clothing line, a junior seat and a film deal now travel with the car. The scarce thing is still a place on the grid.',
+                        'The rest of the weekend has learned how to be sold.',
+                    ],
+                ],
+                'flow' => [90, 92],
+                'figure' => ['file' => 'Portrait_Wide_Thiemo_Albers-Daly_Motorsport_Journalist_EBD_Magazine_2026.webp', 'alt' => 'Thiemo Albers-Daly.', 'caption' => 'Thiemo Albers-Daly. Photograph supplied with the manuscript.', 'position' => 'center 25%'],
+                'qa' => [
+                    ['q' => 'What changed for the fan?', 'a' => 'Placeholder. A weekend can now be followed from a sofa, a short film, or a grandstand with a driver’s name on it. The ticket is still dear. The story is not.'],
+                    ['q' => 'And for the teams?', 'a' => 'Placeholder. Fashion, partners and a wider crowd are part of the grid’s public life. The racing is still the point. The audience around it is larger than it was.'],
+                    ['q' => 'What stays scarce?', 'a' => 'Placeholder. A seat on the grid, and a pass for the garage. Everything written around those two has multiplied.'],
+                ],
+                'bio' => [
+                    'name' => 'Thiemo Albers-Daly',
+                    'photo' => 'Portrait_Thiemo_Albers-Daly_Motorsport_Journalist_EBD_Magazine_2026.webp',
+                    'text' => 'Placeholder biography. Thiemo Albers-Daly is a freelance motorsport journalist and PR consultant. This note was written for the layout. It is not a supplied biography.',
+                ],
+            ],
+        ],
+        [
+            'slug' => 'formula-1-ad',
+            'from' => 'formula-1',
+            'layout' => 'article-with-half-ad',
+            'words' => 220,
+            'ending' => true,
+            'ad' => 'aurelle',
+            'placeholder' => true,
+            'data' => [
+                'editorial' => true,
+                'notes' => [
+                    'Placeholder. The last luxury is not the suite. It is the choice: a sofa, a grandstand, a garage, or the grid itself.',
+                    'Seventy-six years on, the ticket is dearer and the audience is wider, and neither fact has cancelled the other.',
+                    'The suite, the sofa and the pit wall are three ways of watching, and the sport now needs all three.',
+                    'What used to be one expensive afternoon is now a season you can enter at several prices.',
+                ],
+                'tall' => [
+                    'Placeholder. The luxury that lasted is the one that could be entered from more than one door.',
+                ],
+            ],
+        ],
+        [
+            'slug' => 'ad-halden',
+            'title' => 'Placeholder ad · Halden & Co.',
+            'layout' => 'ad-full-bleed',
+            'ad' => 'halden',
+            'placeholder' => true,
+            'thumbnail' => 'Ad_Wine_Placeholder_EBD_Magazine_2026.webp',
+        ],
+        [
+            'slug' => 'family-values',
+            'from' => 'family-values',
+            'layout' => 'article-opener-banner',
+            'words' => 120,
+            'placeholder' => true,
+            'thumbnail' => 'Still_Table_Placeholder_EBD_Magazine_2026.webp',
+            'data' => [
+                'image' => 'Still_Table_Placeholder_EBD_Magazine_2026.webp',
+                'image_alt' => 'Placeholder photograph of a laid table. Not from the article.',
+            ],
+        ],
+        [
+            'slug' => 'family-values-columns',
+            'from' => 'family-values',
+            'layout' => 'article-two-column',
+            'words' => 320,
+        ],
+        [
+            'slug' => 'family-values-ad',
+            'from' => 'family-values',
+            'layout' => 'article-with-half-ad',
+            'words' => 140,
+            'ending' => true,
+            'ad' => 'sable',
+            'placeholder' => true,
+        ],
+        [
+            'slug' => 'ad-vesper',
+            'title' => 'Placeholder ad · Vesper Atelier',
+            'layout' => 'ad-poster',
+            'ad' => 'vesper',
+            'placeholder' => true,
+            'thumbnail' => 'Ad_Fragrance_Placeholder_EBD_Magazine_2026.webp',
+        ],
+        [
+            'slug' => 'extraordinary-difference',
+            'from' => 'extraordinary-difference',
+            'layout' => 'article-opener',
+            'words' => 140,
+            'placeholder' => true,
+            'thumbnail' => 'Still_Street_Style_Placeholder_EBD_Magazine_2026.webp',
+            'data' => [
+                'image' => 'Still_Street_Style_Placeholder_EBD_Magazine_2026.webp',
+                'image_alt' => 'Placeholder street photograph. Not of Priscilla Stephan.',
+            ],
+        ],
+        [
+            'slug' => 'extraordinary-difference-quote',
+            'from' => 'extraordinary-difference',
+            'layout' => 'pull-quote',
+            'words' => 100,
+        ],
+        [
+            'slug' => 'extraordinary-difference-end',
+            'from' => 'extraordinary-difference',
+            'layout' => 'article-two-column',
+            'words' => 280,
+            'ending' => true,
+        ],
+        [
+            'slug' => 'ad-brancaster',
+            'title' => 'Placeholder ad · Brancaster House',
+            'layout' => 'ad-full-bleed',
+            'ad' => 'brancaster',
+            'placeholder' => true,
+            'thumbnail' => 'Ad_Hotel_Placeholder_EBD_Magazine_2026.webp',
+        ],
+        [
+            'slug' => 'freedom-to-choose',
+            'from' => 'freedom-to-choose',
+            'layout' => 'article-opener',
+            'words' => 150,
+            'placeholder' => true,
+            'thumbnail' => 'Still_Interior_Detail_Placeholder_EBD_Magazine_2026.webp',
+            'data' => [
+                'image' => 'Still_Interior_Detail_Placeholder_EBD_Magazine_2026.webp',
+                'image_alt' => 'Placeholder interior photograph.',
+            ],
+        ],
+        [
+            'slug' => 'freedom-to-choose-end',
+            'from' => 'freedom-to-choose',
+            'layout' => 'article-three-column',
+            'words' => 280,
+            'ending' => true,
+        ],
+        [
+            'slug' => 'ad-sable-page',
+            'title' => 'Placeholder ad · Sable Route',
+            'layout' => 'ad-diagonal',
+            'ad' => 'sable',
+            'placeholder' => true,
+            'thumbnail' => 'Ad_Coast_Placeholder_EBD_Magazine_2026.webp',
+        ],
+        [
+            'slug' => 'orveda',
+            'from' => 'orveda',
+            'layout' => 'article-opener',
+            'words' => 130,
+            'thumbnail' => 'Packshot_Orveda_Omnipotent_Concentrate_EBD_Magazine_2026.webp',
+            'data' => [
+                'image' => 'Packshot_Orveda_Omnipotent_Concentrate_EBD_Magazine_2026.webp',
+                'image_alt' => 'Orveda Omnipotent Concentrate bottle.',
+            ],
+        ],
+        [
+            'slug' => 'orveda-end',
+            'from' => 'orveda',
+            'layout' => 'article-two-column',
+            'words' => 320,
+            'ending' => true,
+        ],
+        [
+            'slug' => 'ad-lumen',
+            'title' => 'Placeholder ad · Lumen Press',
+            'layout' => 'ad-poster',
+            'ad' => 'lumen',
+            'placeholder' => true,
+            'thumbnail' => 'Ad_Interior_Placeholder_EBD_Magazine_2026.webp',
+        ],
+        [
+            'slug' => 'the-edit',
+            'title' => 'The Edit',
+            'layout' => 'brand-grid',
+            'placeholder' => true,
+            'data' => [
+                'heading' => 'The Edit',
+                'dek' => 'Names as supplied. The photographs are placeholders, not the houses themselves.',
+                'brands' => [
+                    ['name' => 'The Reclaimery', 'image' => 'Still_Shop_Placeholder_EBD_Magazine_2026.webp', 'placeholder' => true],
+                    ['name' => 'Sylvia Piechulla', 'image' => 'Still_Flowers_Placeholder_EBD_Magazine_2026.webp', 'placeholder' => true],
+                    ['name' => 'Sanyukta Shtrestha', 'image' => 'Still_Desert_Road_Placeholder_EBD_Magazine_2026.webp', 'placeholder' => true],
+                    ['name' => 'Haus Dhalia', 'image' => 'Ad_Interior_Placeholder_EBD_Magazine_2026.webp', 'placeholder' => true],
+                    ['name' => 'Loft & Daughter', 'image' => 'Ad_Atelier_Cloth_Placeholder_EBD_Magazine_2026.webp', 'placeholder' => true],
+                    ['name' => 'Jia De Lara', 'image' => 'Still_Table_Placeholder_EBD_Magazine_2026.webp', 'placeholder' => true],
+                ],
+            ],
+        ],
+        [
+            'slug' => 'contributors',
+            'title' => 'Contributors',
+            'layout' => 'contributors-grid',
+            'placeholder' => true,
+        ],
+        [
+            'slug' => 'masthead',
+            'title' => 'Masthead',
+            'layout' => 'colophon-page',
+            'placeholder' => true,
+            'data' => [
+                'issue_line' => 'Issue 01 | Winter 2026',
+                'groups' => [
+                    ['label' => 'Editorial', 'lines' => [
+                        'Editor-in-Chief — Roberta Lee',
+                        'Editor and fact checker — Hermione',
+                        'Beauty Editor — Viorela Coman',
+                    ]],
+                    ['label' => 'This issue', 'lines' => [
+                        'Thiemo Albers-Daly',
+                        'Dr. Stacy Feiner',
+                        'Priscilla Stephan',
+                        'Ildiko Markus',
+                    ]],
+                    ['label' => 'Publishing', 'lines' => [
+                        'Ethical Brand Directory Magazine',
+                        'Placeholder imprint. Address and company details to come.',
+                        'Printed matter, set for the screen.',
+                    ]],
+                ],
+            ],
+        ],
+        [
+            'slug' => 'cover-framed',
+            'title' => 'Layout study · framed cover',
+            'layout' => 'cover-framed',
+            'study' => true,
+            'placeholder' => true,
+            'data' => [
+                'heading' => 'Show the Love',
+                'dek' => 'A second cover treatment, for comparison.',
+                'issue_line' => 'Issue 01 | Winter 2026',
+                'image' => 'Cover_Fashion_Editorial_Placeholder_EBD_Magazine_2026.webp',
+                'image_alt' => 'Placeholder fashion photograph.',
+                'logo' => 'dark',
+                'scrim' => 'dark',
+                'scrim_strength' => 0.84,
+                'panel' => false,
+            ],
+        ],
+    ],
+];

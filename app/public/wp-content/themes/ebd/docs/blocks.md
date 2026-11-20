@@ -1,4 +1,4 @@
-# Elita Konsalting blocks inventory
+# Ethical Brand Directory blocks inventory
 
 Namespace `mpx/*`. Sections: `metapixels-blocks`. Partials: `metapixels-partials`. Scan root: theme `app/blocks`. Deep decisions: [`BLOCKSTUDIO-7.md`](../BLOCKSTUDIO-7.md).
 

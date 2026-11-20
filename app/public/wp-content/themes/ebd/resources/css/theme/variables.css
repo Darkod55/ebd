@@ -13,20 +13,20 @@
 @theme static {
   --color-*: initial;
 
-  --color-primary: #3D55D6;
-  --color-primary-dark: #2A3FB0;
-  --color-secondary: #13183A;
-  --color-tertiary: #7A3EC8;
-  --color-tertiary-light: #B79CF0;
-  --color-gray: #F5F6FB;
-  --color-light: #EEF1FE;
-  --color-line: #E3E6F0;
-  --color-line-strong: #C5CCE8;
-  --color-body: #3A4058;
-  --color-muted: #5B627A;
-  --color-on-dark: #C9D0F2;
-  --color-white: #fff;
-  --color-black: #000;
+  --color-primary: #c6a46b;
+  --color-primary-dark: #8d6a38;
+  --color-secondary: #111111;
+  --color-tertiary: #f598a4;
+  --color-tertiary-light: #e8c6c4;
+  --color-gray: #f6f3ec;
+  --color-light: #e8e0d4;
+  --color-line: #e8e0d4;
+  --color-line-strong: #8a857c;
+  --color-body: #111111;
+  --color-muted: #8a857c;
+  --color-on-dark: #fbfaf6;
+  --color-white: #fbfaf6;
+  --color-black: #080808;
 
   /**
    * Fluid section padding.
