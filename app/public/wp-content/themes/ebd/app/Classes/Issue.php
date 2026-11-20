@@ -404,7 +404,7 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
                 if (in_array($spread['layout'], ['article-opener', 'article-opener-banner', 'article-with-half-ad', 'pull-quote'], true)) {
                     $cols = 1;
                 }
-                if (($spread['layout'] ?? '') === 'article-editorial') {
+                if (in_array($spread['layout'] ?? '', ['article-editorial', 'article-three-column-images'], true)) {
                     $cols = max(1, (int) ($spread['text_cols'] ?? 2));
                 }
 

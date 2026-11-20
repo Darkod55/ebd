@@ -1056,6 +1056,95 @@ body.issue-reader:has(.mag-f1) #issue-stage {
 
 .mag-edit__fig--c { display: none; }
 
+.mag-tri__cols {
+  display: grid;
+  min-height: 0;
+  flex: 1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 1.15rem;
+  align-items: stretch;
+}
+
+.mag-tri__col {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border-left: 1px solid var(--color-line);
+  padding-left: 0.9rem;
+}
+
+.mag-tri__col:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.mag-tri .mag-edit__fig {
+  flex: none;
+  margin: 0 0 0.55rem;
+}
+
+.mag-tri .mag-edit__fig--end {
+  margin: 0.55rem 0 0;
+}
+
+.mag-tri .mag-edit__fig picture {
+  flex: none;
+  height: 13rem;
+}
+
+.mag-tri .mag-edit__fig--mid picture {
+  height: 16.5rem;
+}
+
+.mag-tri .mag-edit__fig--end picture {
+  height: 14.5rem;
+}
+
+@media (min-width: 85rem) {
+  .mag-tri .mag-edit__fig--top picture { height: 21.5rem; }
+  .mag-tri .mag-edit__fig--mid picture { height: 25.75rem; }
+  .mag-tri .mag-edit__fig--end picture { height: 23.75rem; }
+}
+
+.mag-tri .mag-edit__fig img {
+  height: 100%;
+}
+
+.mag-tri__text {
+  min-height: 0;
+  font-size: var(--mag-body-size);
+  line-height: var(--mag-leading);
+}
+
+.mag-tri__text p,
+.mag-tri__text h2 {
+  margin: 0 0 0.75em;
+}
+
+.mag-tri__text .mag-drop::first-letter {
+  float: left;
+  padding: 0.08rem 0.4rem 0 0;
+  font-family: var(--font-heading);
+  font-size: 3.15rem;
+  line-height: 0.72;
+}
+
+.mag-tri__text blockquote {
+  margin: 0.1rem 0 0.75em;
+  padding: 0.1rem 0 0.1rem 0.75rem;
+  border-left: 2px solid var(--color-primary);
+}
+
+.mag-tri__text blockquote p {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1.28;
+}
+
 @media (width < 64rem) {
   .mag,
   .mag--opener,
@@ -1152,6 +1241,27 @@ body.issue-reader:has(.mag-f1) #issue-stage {
     padding: 1.5rem 1.25rem 2.25rem;
   }
 
+  .mag-tri__cols {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+  }
+
+  .mag-tri__col {
+    overflow: visible;
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .mag-tri .mag-edit__fig picture {
+    height: 14rem;
+  }
+
+  .mag-tri__text {
+    overflow: visible;
+    font-size: 1.0625rem;
+  }
+
   .mag-edit__run {
     flex-direction: column;
     align-items: flex-start;
@@ -1160,6 +1270,9 @@ body.issue-reader:has(.mag-f1) #issue-stage {
 
   .issue-layout.mag.mag-edit h1 {
     text-align: left;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
   }
 
   .mag-edit__board,

@@ -85,16 +85,16 @@ return [
         [
             'slug' => 'formula-1-grid',
             'from' => 'formula-1',
-            'layout' => 'article-editorial',
-            'words' => 145,
+            'layout' => 'article-three-column-images',
+            'text_cols' => 1,
+            'words' => 281,
             'placeholder' => true,
             'data' => [
-                'pattern' => 'corners',
-                'callout' => ['kicker' => 'Twenty-two', 'line' => 'Drivers on the grid'],
+                'flow' => [100, 45, 42, 67],
                 'figures' => [
-                    ['slot' => 'a', 'file' => 'Formula_1_Grand_Prix_Race_EBD_Magazine_2026.webp', 'alt' => 'Formula 1 cars racing at night.', 'caption' => 'Placeholder. Heineken, FIA and F1 marks are in the frame. Rights unconfirmed.', 'position' => 'center 100%'],
-                    ['slot' => 'b', 'file' => 'Still_Workshop_Placeholder_EBD_Magazine_2026.webp', 'alt' => 'A machinist at a lathe.', 'caption' => 'Placeholder photograph. Unsplash.'],
-                    ['slot' => 'c', 'file' => 'Still_Night_Wheel_Placeholder_EBD_Magazine_2026.webp', 'alt' => 'A hand on a steering wheel at dusk.', 'caption' => 'Placeholder photograph. Unsplash.'],
+                    ['slot' => 'top', 'file' => 'Formula_1_Grand_Prix_Race_EBD_Magazine_2026.webp', 'alt' => 'Formula 1 cars racing at night.', 'caption' => 'Placeholder. Heineken, FIA and F1 marks are in the frame. Rights unconfirmed.', 'position' => 'center 100%'],
+                    ['slot' => 'mid', 'file' => 'Still_Night_Wheel_Placeholder_EBD_Magazine_2026.webp', 'alt' => 'A hand on a steering wheel at dusk.', 'caption' => 'Placeholder photograph. Unsplash.'],
+                    ['slot' => 'end', 'file' => 'Still_Workshop_Placeholder_EBD_Magazine_2026.webp', 'alt' => 'A machinist at a lathe.', 'caption' => 'Placeholder photograph. Unsplash.'],
                 ],
             ],
         ],
