@@ -1112,10 +1112,245 @@ body.issue-reader:has(.mag-f1) #issue-stage {
   height: 100%;
 }
 
+.mag-feat__board,
+.mag-photos__board,
+.mag-close__board,
+.mag-pair__board {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.mag-feat__main,
+.mag-photos__main,
+.mag-close__main,
+.mag-pair__main {
+  display: grid;
+  gap: 0.85rem 1.15rem;
+  align-items: stretch;
+}
+
+.mag-pair__main {
+  grid-template-columns: 0.62fr 1fr 1fr;
+}
+
+.mag-pair .mag-edit__fig,
+.mag-feat .mag-edit__fig,
+.mag-close .mag-edit__fig,
+.mag-photos__grid .mag-edit__fig {
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.mag-pair .mag-edit__fig picture,
+.mag-feat .mag-edit__fig picture,
+.mag-close .mag-edit__fig picture,
+.mag-photos__grid .mag-edit__fig picture {
+  height: 100%;
+  flex: 1;
+  min-height: 8rem;
+}
+
+.mag-pair__col,
+.mag-feat__col,
+.mag-close__col,
+.mag-photos__copy {
+  min-height: 0;
+}
+
+.mag--editorial .mag-half__copy {
+  padding: var(--mag-pad-y) var(--mag-pad-x);
+  gap: 0.7rem;
+}
+
+.mag--editorial .mag-col {
+  flex: none;
+  border-left: 0;
+  padding-left: 0;
+  font-size: var(--mag-body-size);
+  line-height: var(--mag-leading);
+}
+
+@media (min-height: 800px) {
+  .mag--editorial .mag-col {
+    line-height: 1.9;
+  }
+
+  .mag-photos__copy {
+    line-height: 1.95;
+  }
+}
+
+.mag--editorial .mag-half__copy h1 {
+  font-size: clamp(2.4rem, 5vh, 3.4rem);
+}
+
+.mag--editorial .mag-foot {
+  margin-top: auto;
+}
+
+.mag-feat__main {
+  grid-template-columns: 1.15fr 1fr 1fr;
+}
+
+.mag-feat__stats,
+.mag-pair__band {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.15rem;
+  align-content: center;
+  min-height: 6.75rem;
+  margin: 0;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.mag-pair__band {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mag-feat__stats p,
+.mag-pair__band p {
+  margin: 0;
+}
+
+.mag-feat__stats strong,
+.mag-pair__band strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4.4vh, 3.15rem);
+  font-weight: 500;
+  line-height: 0.9;
+}
+
+.mag-feat__stats span,
+.mag-pair__band span {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mag-photos__main {
+  grid-template-columns: 0.82fr 1.18fr;
+  flex: 1;
+  min-height: 0;
+}
+
+.mag-photos__board > .mag-pair__band {
+  flex: none;
+  min-height: 0;
+  padding-top: 0.7rem;
+  padding-bottom: 0.15rem;
+}
+
+.mag-photos__grid {
+  height: 100%;
+}
+
+.mag-photos__copy {
+  overflow: hidden;
+}
+
+.mag-photos__label {
+  margin: 0 0 0.45rem;
+  color: var(--color-primary-dark);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.mag-photos__note {
+  margin-top: 0.35rem;
+}
+
+.mag-photos__grid {
+  display: grid;
+  min-height: 0;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0.75rem 1rem;
+}
+
+.mag-photos__grid .mag-edit__fig {
+  display: flex;
+  min-height: 0;
+  margin: 0;
+}
+
+.mag-close__main {
+  grid-template-columns: 1fr 1fr 0.78fr;
+}
+
+.mag-close__bio {
+  display: grid;
+  flex: 1;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.85rem;
+  align-content: center;
+  align-items: start;
+  min-height: 6.5rem;
+  margin: 0;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.mag-close__mark {
+  width: 0.7rem;
+  height: 0.7rem;
+  margin: 0.35rem 0 0;
+  background: var(--color-primary);
+}
+
+.mag-close__who {
+  margin: 0 0 0.25rem;
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.mag-close__bio p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.mag-close__qa {
+  margin-top: 0.85rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.mag-close__qa p {
+  margin: 0 0 0.55rem;
+}
+
+.mag-close__qa strong {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
 .mag-tri__text {
   min-height: 0;
   font-size: var(--mag-body-size);
   line-height: var(--mag-leading);
+}
+
+@media (min-height: 800px) {
+  .mag-tri__text.mag-photos__copy {
+    line-height: 1.95;
+  }
 }
 
 .mag-tri__text p,
@@ -1260,6 +1495,29 @@ body.issue-reader:has(.mag-f1) #issue-stage {
   .mag-tri__text {
     overflow: visible;
     font-size: 1.0625rem;
+  }
+
+  .mag-feat__main,
+  .mag-photos__main,
+  .mag-close__main,
+  .mag-pair__main,
+  .mag-photos__grid,
+  .mag-feat__stats,
+  .mag-pair__band {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mag-pair .mag-edit__fig picture {
+    height: 16rem;
+    flex: none;
+  }
+
+  .mag-photos__grid .mag-edit__fig picture,
+  .mag-feat .mag-edit__fig picture,
+  .mag-close .mag-edit__fig picture {
+    height: 14rem;
+    flex: none;
   }
 
   .mag-edit__run {

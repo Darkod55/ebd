@@ -26,6 +26,7 @@ Unsplash photographs are used under the [Unsplash Licence](https://unsplash.com/
 | `Still_Workshop_Placeholder_EBD_Magazine_2026` | https://images.unsplash.com/photo-1558618666-fcd25c85cd64 |
 | `Still_Hospitality_Placeholder_EBD_Magazine_2026` | https://images.unsplash.com/photo-1470337458703-46ad1756a187 |
 | `Still_Skyline_Placeholder_EBD_Magazine_2026` | https://images.unsplash.com/photo-1514565131-fce0801e5785 |
+| `Still_Grandstand_Placeholder_EBD_Magazine_2026` | https://images.unsplash.com/photo-1522778119026-d647f0596c20 |
 
 Supplied by the client, resized here. Not Unsplash.
 
