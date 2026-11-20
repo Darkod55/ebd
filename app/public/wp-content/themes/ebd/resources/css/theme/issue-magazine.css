@@ -261,7 +261,7 @@
   pointer-events: none;
   background:
     linear-gradient(to bottom right, rgb(8 8 8 / calc(var(--scrim-strength, 0.84) * 0.96)) 0%, rgb(8 8 8 / calc(var(--scrim-strength, 0.84) * 0.55)) 24%, transparent 46%),
-    linear-gradient(to top, rgb(8 8 8 / var(--scrim-strength, 0.84)) 0%, rgb(8 8 8 / calc(var(--scrim-strength, 0.84) * 0.88)) 48%, transparent 76%);
+    linear-gradient(to top, rgb(8 8 8 / var(--scrim-strength, 0.84)) 0%, rgb(8 8 8 / calc(var(--scrim-strength, 0.84) * 0.9)) 58%, transparent 84%);
 }
 
 .mag-cover__brand::before {
@@ -285,7 +285,7 @@
 .mag-cover--scrim-light .mag-cover__shade {
   background:
     linear-gradient(to bottom right, rgb(251 250 246 / calc(var(--scrim-strength, 0.84) * 0.96)) 0%, transparent 46%),
-    linear-gradient(to top, rgb(251 250 246 / var(--scrim-strength, 0.84)) 0%, rgb(251 250 246 / calc(var(--scrim-strength, 0.84) * 0.88)) 48%, transparent 76%);
+    linear-gradient(to top, rgb(251 250 246 / var(--scrim-strength, 0.84)) 0%, rgb(251 250 246 / calc(var(--scrim-strength, 0.84) * 0.9)) 58%, transparent 84%);
 }
 
 .mag-cover--scrim-none .mag-cover__shade {
@@ -361,49 +361,63 @@
   bottom: clamp(0.8rem, 2vh, 1.4rem);
 }
 
-.mag-cover__lines h1 {
-  max-width: 12ch;
+.issue-layout.mag .mag-cover__lines h1 {
+  max-width: none;
   color: var(--color-on-dark);
-  font-size: clamp(2rem, 6vh, 4.2rem);
+  font-size: clamp(2.75rem, 7vh, 4.75rem);
+  line-height: 0.92;
+  white-space: nowrap;
 }
 
 .mag-cover__lines p,
 .mag-framed__copy p {
-  margin: 0.35rem 0 0;
-  font-size: 1rem;
+  margin: 0.55rem 0 0;
+  font-size: 1.25rem;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 .mag-cover__lines ul {
-  margin: 0.7rem 0 0;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  margin: 1.05rem 0 0;
   padding: 0;
   list-style: none;
-  font-size: 0.9375rem;
+  column-gap: 1.35rem;
+  row-gap: 0.38rem;
+  align-items: baseline;
+  font-size: 1.125rem;
   font-weight: 500;
-  line-height: 1.45;
+  line-height: 1.35;
 }
 
-.mag-cover__lines li span {
-  display: inline-block;
-  min-width: 6.75rem;
+.mag-cover__lines li {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: baseline;
+}
+
+.mag-cover__kicker {
   color: var(--color-primary);
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  text-align: right;
   text-transform: uppercase;
 }
 
 .mag-cover__lines .mag-cover__note {
-  margin-top: 0.55rem !important;
-  font-size: 1rem;
+  margin-top: 0.85rem !important;
+  font-size: 1.0625rem;
   font-weight: 500;
   line-height: 1.4;
 }
 
 .mag-cover--scrim-light .mag-cover__lines,
 .mag-cover--scrim-light .mag-framed__copy,
-.mag-cover--scrim-light .mag-cover__lines li span,
+.mag-cover--scrim-light .mag-cover__kicker,
 .mag-cover--scrim-light .mag-cover__lines h1 {
   color: var(--color-black);
 }
@@ -708,7 +722,26 @@
     position: relative;
     right: auto;
     left: auto;
-    padding: 1rem;
+    padding: 1.15rem 1rem 1.25rem;
+  }
+
+  .issue-layout.mag .mag-cover__lines h1 {
+    font-size: clamp(2.15rem, 9.2vw, 3.25rem);
+  }
+
+  .mag-cover__lines p,
+  .mag-framed__copy p {
+    font-size: 1.125rem;
+  }
+
+  .mag-cover__lines ul {
+    column-gap: 0.9rem;
+    font-size: 1.0625rem;
+  }
+
+  .mag-cover__kicker {
+    font-size: 0.875rem;
+    letter-spacing: 0.12em;
   }
 
   .mag-cover__brand {

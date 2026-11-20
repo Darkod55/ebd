@@ -25,7 +25,10 @@
     @endif
     <ul>
       @foreach ($data['lines'] ?? [] as $line)
-        <li><span>{{ $line['section'] }}</span> {{ $line['text'] }}</li>
+        <li>
+          <span class="mag-cover__kicker">{{ $line['section'] }}</span>
+          <span class="mag-cover__entry">{{ $line['text'] }}</span>
+        </li>
       @endforeach
     </ul>
     @if (! empty($data['note']))
