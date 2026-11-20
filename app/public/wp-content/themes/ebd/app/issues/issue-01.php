@@ -25,7 +25,11 @@ return [
                 'note' => 'Draft cover line. Photograph is a placeholder.',
                 'image' => 'Cover_Fashion_Editorial_Placeholder_EBD_Magazine_2026.webp',
                 'image_alt' => 'Placeholder fashion photograph. Not the Show the Love shoot.',
-                'logo' => 'dark',
+                'logo' => 'light',
+                // scrim: dark | light | none. strength is 0–1. panel puts a solid plate behind the lines.
+                'scrim' => 'dark',
+                'scrim_strength' => 0.84,
+                'panel' => false,
                 'lines' => [
                     ['section' => 'Motorsport', 'text' => 'Formula 1, beyond the glitz — Thiemo Albers-Daly'],
                     ['section' => 'Family', 'text' => 'Putting family values into practice — Dr. Stacy Feiner'],
@@ -287,6 +291,9 @@ return [
                 'image' => 'Cover_Fashion_Editorial_Placeholder_EBD_Magazine_2026.webp',
                 'image_alt' => 'Placeholder fashion photograph.',
                 'logo' => 'dark',
+                'scrim' => 'dark',
+                'scrim_strength' => 0.84,
+                'panel' => false,
             ],
         ],
     ],
