@@ -1,0 +1,73 @@
+{
+  "$schema": "https://blockstudio.dev/schema/block",
+  "name": "mpx/hero",
+  "title": "Hero",
+  "category": "metapixels-blocks",
+  "icon": "cover-image",
+  "description": "Full-width hero with content on the left (heading, paragraph, button) and a full-bleed image on the right, with a soft colour blend into the photo.",
+  "keywords": ["hero", "banner", "header", "image"],
+  "supports": {
+    "html": false,
+    "align": ["full"],
+    "anchor": true
+  },
+  "blockstudio": {
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><rect width=\"24\" height=\"24\" rx=\"3\" fill=\"#101920\"/><rect x=\"3.25\" y=\"4.25\" width=\"17.5\" height=\"15.5\" rx=\"1.5\" stroke=\"#FF884B\" stroke-width=\"1.5\"/><circle cx=\"15.75\" cy=\"9\" r=\"2.1\" fill=\"#FF884B\"/><path d=\"M4.5 16.75h15L15.4 11.6a1 1 0 0 0-1.5 0l-2.35 2.7-1.7-1.55a1 1 0 0 0-1.4.05L4.5 16.75Z\" fill=\"#FF884B\"/></svg>",
+    "attributes": [
+      {
+        "type": "group",
+        "title": "Background",
+        "attributes": [
+          {
+            "type": "custom/background_colour",
+            "overrides": {
+              "bg_colour": {
+                "default": {
+                  "value": "var(--color-primary)",
+                  "name": "Primary",
+                  "slug": "bg-primary"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "title": "Image",
+        "attributes": [
+          {
+            "id": "hero_image",
+            "type": "files",
+            "label": "Hero image",
+            "help": "Fills the right half on desktop and stacks full-width below the content on mobile.",
+            "allowedTypes": ["image"],
+            "multiple": false,
+            "returnFormat": "object"
+          },
+          {
+            "id": "show_overlay",
+            "type": "toggle",
+            "label": "Blend overlay",
+            "help": "Soft fade from the background colour into the image on desktop.",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "title": "Content",
+        "attributes": [
+          {
+            "type": "custom/section_padding",
+            "overrides": {
+              "section_padding": {
+                "default": ["py-clamp-xl"]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

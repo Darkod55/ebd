@@ -1,0 +1,33 @@
+{
+  "$schema": "https://blockstudio.dev/schema/block",
+  "name": "mpx/partial-card-testimonial-image",
+  "title": "Card (Testimonial Image)",
+  "category": "metapixels-partials",
+  "icon": "format-image",
+  "description": "Image-only testimonial card (screenshot, photo, or graphic). Fills the card edge-to-edge. Background comes from the parent Cards block.",
+  "keywords": [
+    "card",
+    "testimonial",
+    "image",
+    "photo",
+    "screenshot"
+  ],
+  "parent": [
+    "mpx/partial-cards"
+  ],
+  "usesContext": [
+    "mpx/partial-cards"
+  ],
+  "supports": {
+    "html": false,
+    "lock": false
+  },
+  "blockstudio": {
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><rect width=\"24\" height=\"24\" rx=\"3\" fill=\"#101920\"/><rect x=\"3.5\" y=\"4.5\" width=\"17\" height=\"15\" rx=\"1.5\" stroke=\"#FF884B\" stroke-width=\"1.5\"/><rect x=\"5\" y=\"6\" width=\"14\" height=\"12\" rx=\"1\" fill=\"#FF884B\"/><circle cx=\"9\" cy=\"10\" r=\"1.4\" fill=\"#101920\"/><path d=\"M5 15.5l3.4-2.6 2.2 1.7 2.6-2.2 3.8 3.1H5z\" fill=\"#101920\" opacity=\"0.9\"/></svg>",
+    "attributes": [
+      {
+        "type": "custom/grid_item_width"
+      }
+    ]
+  }
+}

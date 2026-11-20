@@ -1,0 +1,217 @@
+/**
+ * Homepage (front-page) and the Elita header / footer chrome.
+ * Kept in the components layer so colour utilities can still override.
+ */
+
+@layer components {
+.home {
+  color: var(--color-body);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+}
+
+.home :is(h1, h2, h3, .h2) {
+  color: var(--color-secondary);
+}
+
+.home :is(h1, h2, h3, p) {
+  margin-block: 0;
+}
+
+.home-eyebrow {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-tertiary);
+}
+
+.home-eyebrow.is-light {
+  color: var(--color-tertiary-light);
+}
+
+.home-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--color-line);
+  background: var(--color-white);
+  color: var(--color-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.home-chip.is-dark {
+  border-color: rgb(255 255 255 / 0.18);
+  background: rgb(255 255 255 / 0.08);
+  color: var(--color-white);
+}
+
+.home-stats,
+.home-stages,
+.home-quotes {
+  display: grid;
+  gap: 20px;
+}
+
+.home-stats {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+}
+
+.home-stages,
+.home-quotes {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.home-services {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.home-steps {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.home-checks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.home-checks li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-line);
+  color: var(--color-secondary);
+}
+
+.home-checks.is-on-dark li {
+  color: var(--color-white);
+  border-bottom-color: rgb(255 255 255 / 0.14);
+}
+
+.home-checks.is-two {
+  gap: 0;
+}
+
+.home-svc {
+  margin: 0;
+  padding: 0 0 0 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--color-body);
+  font-size: var(--font-size-sm);
+}
+
+.home-svc li::marker {
+  color: var(--color-tertiary);
+}
+
+.home-faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  min-height: 64px;
+  padding: 18px 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--color-secondary);
+  cursor: pointer;
+}
+
+.home-faq-q:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+}
+
+/*
+ * Button component selectors are more specific than a plain `.btn`
+ * (they include the editor link). These stay unlayered so the
+ * landing-page treatment wins: sentence case, 12px radius.
+ */
+.home :is(a.btn, button.btn),
+.site-header :is(a.btn, button.btn) {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+  border-radius: 12px;
+  min-height: 52px;
+}
+
+.site-header :is(a.btn, button.btn).btn-sm {
+  min-height: 44px;
+  font-size: var(--font-size-sm);
+}
+
+.home :is(a.btn, button.btn).is-pill {
+  border-radius: 999px;
+}
+
+@media (min-width: 40rem) {
+  .home-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .home-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-checks.is-two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 28px;
+  }
+
+  .home-services {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/*
+ * Higher specificity than the 40rem rules. Blockstudio re-emits this file
+ * and can place the smaller breakpoint after the larger one.
+ */
+@media (min-width: 64rem) {
+  .home .home-stages {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .home .home-quotes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home .home-steps {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .home .home-services {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .home .home-services > article {
+    grid-column: span 2;
+  }
+
+  .home .home-services > article:nth-child(n + 7) {
+    grid-column: span 3;
+  }
+}

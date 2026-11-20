@@ -1,0 +1,786 @@
+@import "tailwindcss";
+@import "./theme.css";
+@source "../../app/**/*.php";
+@source "../**/*.blade.php";
+@source "../**/*.js";
+
+/**
+ * Page/post title in the editor canvas.
+ */
+.edit-post-visual-editor__post-title-wrapper,
+.editor-visual-editor__post-title-wrapper {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none !important;
+  margin-block: 0 !important;
+  padding-block: 0.75rem !important;
+  padding-inline: var(--spacing-clamp-inline, 24px) !important;
+}
+
+.edit-post-visual-editor__post-title-wrapper .editor-post-title,
+.editor-visual-editor__post-title-wrapper .editor-post-title,
+.edit-post-visual-editor__post-title-wrapper .wp-block-post-title,
+.editor-visual-editor__post-title-wrapper .wp-block-post-title,
+.edit-post-visual-editor__post-title-wrapper .editor-post-title__input,
+.editor-visual-editor__post-title-wrapper .editor-post-title__input {
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: var(--width-container) !important;
+  margin-block: 0 !important;
+  margin-inline: auto !important;
+  padding: 0 !important;
+  text-align: left !important;
+}
+
+/*
+*This runs inside the editor iframe, alongside the block's own rendered markup, so it can actually reach classes like `.bs-block` - unlike editor-canvas.css, which only ever runs in the parent wp-admin document.
+*/
+.bs-block {
+  max-width: 100% !important;
+
+  & .container {
+    max-width: var(--width-container);
+
+    /**
+     * mpx/one-column Limit width.
+     */
+    &.mw-1000 {
+      width: 100%;
+      max-width: var(--width-content);
+    }
+
+    &.content-pos-left > .block-editor-block-list__layout,
+    &.content-pos-center > .block-editor-block-list__layout,
+    &.content-pos-right > .block-editor-block-list__layout {
+      display: flex !important;
+      flex-direction: column !important;
+      width: 100%;
+    }
+
+    &.content-pos-left > .block-editor-block-list__layout {
+      align-items: flex-start !important;
+    }
+
+    &.content-pos-center > .block-editor-block-list__layout {
+      align-items: center !important;
+    }
+
+    &.content-pos-right > .block-editor-block-list__layout {
+      align-items: flex-end !important;
+    }
+
+    &.grid-auto-cards {
+      display: block !important;
+      width: 100%;
+    }
+
+    /*
+     * Cards / other grids — per-item `--col-width-*` / `--col-grow-*`.
+     * Exclude `.mpx-columns` (parent owns `--col-1-*` / `--col-2-*`).
+     */
+    &.grid-auto-cards:not(.mpx-columns) > .block-editor-block-list__layout,
+    &.grid-auto-cards:not(.mpx-columns) > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      --_min: var(--grid-min-desktop, 50%);
+
+      display: flex !important;
+      flex-wrap: wrap;
+      align-items: start;
+      width: 100% !important;
+      min-width: var(--width-container);
+
+      & > *,
+      & > .wp-block-mpx-partial-column,
+      & > [data-type="mpx/partial-column"] {
+        flex-grow: var(
+          --col-grow-desktop,
+          var(--col-grow-tablet, var(--col-grow-mobile, 1))
+        );
+        flex-shrink: 1;
+        flex-basis: var(
+          --col-width-desktop,
+          var(--col-width-tablet, var(--col-width-mobile, var(--_min)))
+        );
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      & > .mpx-subheading,
+      & > .wp-block-mpx-partial-subheading,
+      & > [data-type="mpx/partial-subheading"] {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        order: -1;
+      }
+    }
+
+    /*
+     * mpx/columns — parent CSS vars on `.mpx-columns` (`--col-1-*` / `--col-2-*`).
+     * Use `nth-child(n of …)` so we hit column blocks even when not :first-child.
+     */
+    &.mpx-columns.grid-auto-cards > .block-editor-block-list__layout,
+    &.mpx-columns.grid-auto-cards > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      display: flex !important;
+      flex-wrap: wrap;
+      align-items: stretch;
+      width: 100% !important;
+      min-width: var(--width-container);
+      column-gap: var(--grid-gap-col, 20px);
+      row-gap: var(--grid-gap-row, 20px);
+
+      & > [data-type="mpx/partial-column"] {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 1;
+        align-self: stretch;
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      & > [data-type="mpx/partial-column"] > .mpx-partial-column,
+      & > [data-type="mpx/partial-column"] > .mpx-partial-column--has-bg {
+        flex: 1 1 auto;
+        width: 100%;
+        min-height: 100%;
+      }
+
+      & > [data-type="mpx/partial-column"]:nth-child(1 of [data-type="mpx/partial-column"]) {
+        flex-grow: var(--col-1-grow-desktop, 1);
+        flex-basis: var(--col-1-width-desktop, 50%);
+      }
+
+      & > [data-type="mpx/partial-column"]:nth-child(2 of [data-type="mpx/partial-column"]) {
+        flex-grow: var(--col-2-grow-desktop, 1);
+        flex-basis: var(--col-2-width-desktop, 50%);
+      }
+    }
+
+    &.mpx-columns.grid-auto-cards.is-flipped > .block-editor-block-list__layout,
+    &.mpx-columns.grid-auto-cards.is-flipped > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      & > [data-type="mpx/partial-column"]:nth-child(1 of [data-type="mpx/partial-column"]) {
+        order: 2;
+      }
+
+      & > [data-type="mpx/partial-column"]:nth-child(2 of [data-type="mpx/partial-column"]) {
+        order: 1;
+      }
+    }
+
+    /* Sticky column preview (desktop canvas); scroll host is the editor iframe. */
+    &.mpx-columns.grid-auto-cards.is-sticky-left > .block-editor-block-list__layout,
+    &.mpx-columns.grid-auto-cards.is-sticky-left > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      & > [data-type="mpx/partial-column"]:nth-child(1 of [data-type="mpx/partial-column"]) {
+        position: sticky;
+        top: 1.5rem;
+        align-self: flex-start;
+      }
+    }
+
+    &.mpx-columns.grid-auto-cards.is-sticky-right > .block-editor-block-list__layout,
+    &.mpx-columns.grid-auto-cards.is-sticky-right > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      & > [data-type="mpx/partial-column"]:nth-child(2 of [data-type="mpx/partial-column"]) {
+        position: sticky;
+        top: 1.5rem;
+        align-self: flex-start;
+      }
+    }
+
+    &.grid-auto-cards-gap > .block-editor-block-list__layout,
+    &.grid-auto-cards-gap > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      column-gap: 30px;
+      row-gap: 30px;
+
+      @media (width >= theme(--breakpoint-lg)) {
+        column-gap: var(--grid-gap-col, 20px);
+        row-gap: var(--grid-gap-row, 20px);
+      }
+    }
+
+    &.grid-auto-cards-nowrap > .block-editor-block-list__layout,
+    &.grid-auto-cards-nowrap > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      flex-wrap: nowrap;
+
+      & > * {
+        min-width: 0;
+      }
+    }
+
+    &.grid-auto-cards.is-flipped:not(.mpx-columns) > .block-editor-block-list__layout,
+    &.grid-auto-cards.is-flipped:not(.mpx-columns) > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      & > :first-child {
+        order: 2;
+      }
+
+      & > :first-child + * {
+        order: 1;
+      }
+    }
+
+  }
+}
+
+.block-library-block__reusable-block-container { max-width: unset !important; }
+
+/**
+ * mpx/columns — gradient section + card-style column cells in the canvas.
+ */
+.mpx-columns-section--gradient {
+  background-color: var(--color-primary) !important;
+  background-image: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--color-tertiary) 100%
+  ) !important;
+}
+
+.mpx-partial-column--has-bg > .block-editor-inner-blocks,
+.mpx-partial-column--has-bg > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-partial-column--has-bg > .block-editor-block-list__layout {
+  display: flex !important;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  height: 100%;
+}
+
+/**
+ * mpx/columns vertical align (editor).
+ *
+ * useBlockProps is on the column root itself (`[data-type].mpx-partial-column`),
+ * not a nested child. InnerBlocks sits directly under that root.
+ * `--mpx-col-justify` is set on the section / `.mpx-columns` wrapper.
+ */
+.mpx-columns-section [data-type="mpx/partial-column"],
+.mpx-columns [data-type="mpx/partial-column"],
+.mpx-columns-section .wp-block-mpx-partial-column,
+.mpx-columns .wp-block-mpx-partial-column {
+  display: flex !important;
+  flex-direction: column !important;
+  align-self: stretch !important;
+  min-height: 100% !important;
+  height: auto !important;
+  justify-content: var(--mpx-col-justify, flex-start) !important;
+}
+
+.mpx-columns-section [data-type="mpx/partial-column"] > .block-editor-inner-blocks,
+.mpx-columns [data-type="mpx/partial-column"] > .block-editor-inner-blocks,
+.mpx-columns-section .wp-block-mpx-partial-column > .block-editor-inner-blocks,
+.mpx-columns .wp-block-mpx-partial-column > .block-editor-inner-blocks,
+.mpx-columns-section [data-type="mpx/partial-column"] > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-columns [data-type="mpx/partial-column"] > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-columns-section .wp-block-mpx-partial-column > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-columns .wp-block-mpx-partial-column > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-columns-section [data-type="mpx/partial-column"] > .block-editor-block-list__layout,
+.mpx-columns [data-type="mpx/partial-column"] > .block-editor-block-list__layout {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  min-height: 100% !important;
+  height: 100% !important;
+  justify-content: var(--mpx-col-justify, flex-start) !important;
+}
+
+/**
+ * mpx/column-cover — keep the content box usable in the canvas.
+ */
+.mpx-column-cover {
+  display: block !important;
+  width: 100%;
+  min-height: 28rem;
+}
+
+.mpx-column-cover__box > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-column-cover__box > .block-editor-block-list__layout {
+  display: flex !important;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+/**
+ * mpx/partial-cards editor grid.
+ * Slider mode is frontend-only — the editor always uses the wrapping grid.
+ */
+.mpx-cards.grid-auto-cards {
+  display: block !important;
+  width: 100%;
+}
+
+/**
+ * mpx/partial-featured-posts — cards are direct children (no InnerBlocks),
+ * so restore the flex wrap grid the block rule above disables.
+ */
+.mpx-featured-posts.grid-auto-cards {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+  column-gap: var(--grid-gap-col, 20px);
+  row-gap: var(--grid-gap-row, 20px);
+}
+
+.mpx-featured-posts.grid-auto-cards > .mpx-featured-card {
+  flex: 0 1 var(--grid-min-desktop, 25%);
+  align-self: stretch;
+  max-width: 100%;
+  min-width: 0;
+  width: auto;
+}
+
+.mpx-cards.mpx-cards--gradient .mpx-card,
+.mpx-cards.mpx-cards--gradient [data-type^="mpx/partial-card"] .mpx-card {
+  background-color: transparent !important;
+  background-image: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--color-tertiary) 100%
+  ) !important;
+  color: var(--color-white) !important;
+  text-align: center;
+}
+
+.mpx-cards.mpx-cards--gradient .mpx-card--testimonial-simple,
+.mpx-cards.mpx-cards--gradient [data-type="mpx/partial-card-testimonial-simple"] .mpx-card {
+  text-align: left !important;
+  align-items: flex-start;
+}
+
+.mpx-cards.grid-auto-cards > .block-editor-block-list__layout {
+  --_min: var(--grid-min-desktop, 100%);
+
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100% !important;
+  min-width: var(--width-container);
+  column-gap: var(--grid-gap-col, 20px);
+  row-gap: var(--grid-gap-row, 20px);
+
+  & > .mpx-card,
+  & > [data-type="mpx/partial-card"],
+  & > [data-type="mpx/partial-card-icon"],
+  & > [data-type="mpx/partial-card-image"],
+  & > [data-type="mpx/partial-card-testimonial-simple"],
+  & > [data-type="mpx/partial-card-testimonial-image"],
+  & > [data-type="mpx/partial-button"] {
+    flex: 0 1 var(
+      --col-width-desktop,
+      var(--col-width-tablet, var(--col-width-mobile, var(--_min)))
+    );
+    align-self: stretch;
+    max-width: 100%;
+    min-width: 0;
+    width: auto;
+  }
+
+  & > [data-type="mpx/partial-button"] {
+    display: flex;
+
+    & .mpx-partial-button,
+    & .wp-block-buttons,
+    & .wp-block-button,
+    & .wp-block-button__link {
+      width: 100%;
+    }
+  }
+
+  & > .block-list-appender {
+    flex: 1 0 100%;
+  }
+}
+
+.mpx-cards.grid-auto-cards.is-fill-row > .block-editor-block-list__layout {
+  & > .mpx-card,
+  & > [data-type="mpx/partial-card"],
+  & > [data-type="mpx/partial-card-icon"],
+  & > [data-type="mpx/partial-card-image"],
+  & > [data-type="mpx/partial-card-testimonial-simple"],
+  & > [data-type="mpx/partial-card-testimonial-image"],
+  & > [data-type="mpx/partial-button"] {
+    flex-grow: 1;
+  }
+}
+
+/**
+ * Card inner stack (icon / heading / paragraph / button).
+ */
+.mpx-card--icon > .block-editor-block-list__layout,
+.mpx-card--image > .block-editor-block-list__layout,
+.mpx-card--icon > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-card--image > .block-editor-inner-blocks > .block-editor-block-list__layout,
+[data-type="mpx/partial-card-image"] > .block-editor-block-list__layout,
+[data-type="mpx/partial-card-image"] > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  display: flex !important;
+  flex-direction: column;
+  gap: 1rem;
+
+  & > * {
+    margin-block: 0 !important;
+  }
+}
+
+/**
+ * Card (Image) — edge-to-edge via negative margins (same idea as frontend).
+ * Keeps card padding for text; only the first image breaks out.
+ */
+[data-type="mpx/partial-card-image"].is-bleed-image,
+[data-type="mpx/partial-card-image"] .mpx-card--image.is-bleed-image,
+.mpx-card--image.is-bleed-image {
+  --_card-pad: var(--padding-surface);
+  overflow: hidden !important;
+  align-items: stretch !important;
+  text-align: center;
+
+  @media (width >= theme(--breakpoint-lg)) {
+    --_card-pad: var(--padding-surface-lg);
+  }
+}
+
+[data-type="mpx/partial-card-image"].is-bleed-image > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="core/image"]:nth-child(1 of [data-type="core/image"]),
+[data-type="mpx/partial-card-image"].is-bleed-image > .block-editor-block-list__layout > [data-type="core/image"]:nth-child(1 of [data-type="core/image"]),
+[data-type="mpx/partial-card-image"] .is-bleed-image > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="core/image"]:nth-child(1 of [data-type="core/image"]),
+[data-type="mpx/partial-card-image"] .is-bleed-image > .block-editor-block-list__layout > [data-type="core/image"]:nth-child(1 of [data-type="core/image"]),
+.mpx-card--image.is-bleed-image > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="core/image"]:nth-child(1 of [data-type="core/image"]),
+.mpx-card--image.is-bleed-image > .block-editor-block-list__layout > [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) {
+  width: calc(100% + (var(--_card-pad, var(--padding-surface)) * 2)) !important;
+  max-width: none !important;
+  margin-top: calc(var(--_card-pad, var(--padding-surface)) * -1) !important;
+  margin-inline: calc(var(--_card-pad, var(--padding-surface)) * -1) !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+[data-type="mpx/partial-card-image"].is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) .wp-block-image,
+[data-type="mpx/partial-card-image"] .is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) .wp-block-image,
+.mpx-card--image.is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) .wp-block-image,
+[data-type="mpx/partial-card-image"].is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) .components-resizable-box__container,
+[data-type="mpx/partial-card-image"] .is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) .components-resizable-box__container,
+.mpx-card--image.is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) .components-resizable-box__container {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+[data-type="mpx/partial-card-image"].is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) img,
+[data-type="mpx/partial-card-image"] .is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) img,
+.mpx-card--image.is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) img {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: cover !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+/**
+ * Testimonial card — quote grows; name / company sit at the bottom.
+ */
+.mpx-card--testimonial-simple {
+  & > .mpx-card__body > .block-editor-inner-blocks,
+  & > .mpx-card__body > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    display: flex !important;
+    flex-direction: column;
+    flex: 1 1 auto;
+    height: 100%;
+    min-height: 0;
+  }
+
+  & > .mpx-card__body > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    & > *:first-child {
+      flex: 1 1 auto;
+      margin-bottom: 1.5rem !important;
+    }
+
+    & > * {
+      margin-block: 0 !important;
+    }
+
+    & > [data-type="core/heading"] {
+      margin-bottom: 0.25rem !important;
+    }
+  }
+}
+
+/**
+ * Testimonial image card — edge-to-edge image only.
+ */
+.mpx-card--testimonial-image,
+[data-type="mpx/partial-card-testimonial-image"] .mpx-card--testimonial-image,
+[data-type="mpx/partial-card-testimonial-image"] {
+  padding: 0 !important;
+  overflow: hidden !important;
+  gap: 0 !important;
+}
+
+.mpx-card--testimonial-image > .block-editor-block-list__layout,
+.mpx-card--testimonial-image > .block-editor-inner-blocks > .block-editor-block-list__layout,
+[data-type="mpx/partial-card-testimonial-image"] > .block-editor-block-list__layout,
+[data-type="mpx/partial-card-testimonial-image"] > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  display: flex !important;
+  flex-direction: column;
+  gap: 0;
+  height: 100%;
+
+  & > * {
+    margin-block: 0 !important;
+  }
+}
+
+.mpx-card--testimonial-image [data-type="core/image"] .wp-block-image,
+[data-type="mpx/partial-card-testimonial-image"] [data-type="core/image"] .wp-block-image,
+.mpx-card--testimonial-image [data-type="core/image"] .components-resizable-box__container,
+[data-type="mpx/partial-card-testimonial-image"] [data-type="core/image"] .components-resizable-box__container {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+.mpx-card--testimonial-image [data-type="core/image"] img,
+[data-type="mpx/partial-card-testimonial-image"] [data-type="core/image"] img,
+.mpx-card--testimonial-image .wp-block-image img {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: cover !important;
+  border-radius: 0 !important;
+}
+
+/**
+ * Icon-beside-content toggle — editor.
+ */
+.mpx-card.mpx-card--icon.is-horizontal {
+  --_icon-size: 74px;
+  --_icon-gap: 1rem;
+
+  position: relative;
+  padding-inline-start: var(--padding-surface) !important;
+  min-height: 0 !important;
+
+  @media (width >= theme(--breakpoint-lg)) {
+    padding-inline-start: var(--padding-surface-lg) !important;
+  }
+}
+
+.mpx-card--icon.is-horizontal > .block-editor-block-list__layout,
+.mpx-card--icon.is-horizontal > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem !important;
+  box-sizing: border-box;
+  min-height: var(--_icon-size, 74px);
+  padding-inline-start: calc(var(--_icon-size, 74px) + var(--_icon-gap, 1rem)) !important;
+
+  & > [data-type="mpx/partial-icon"] {
+    position: absolute !important;
+    top: 0 !important;
+    inset-inline-start: 0 !important;
+    inset-inline-end: auto !important;
+    margin: 0 !important;
+    width: var(--_icon-size, 74px) !important;
+    max-width: var(--_icon-size, 74px) !important;
+    height: var(--_icon-size, 74px) !important;
+
+    & :is(.icon, svg.icon) {
+      width: 40px !important;
+      height: 40px !important;
+    }
+  }
+
+  & > :not([data-type="mpx/partial-icon"]) {
+    margin-inline-start: 0 !important;
+    max-width: 100%;
+  }
+
+  & :is(h1, h2, h3, h4, h5, h6, p) {
+    margin-bottom: 0 !important;
+  }
+}
+
+/**
+ * Paragraph Limit Width? (`mw-1000`).
+ * `.fs-*` text sizes come from theme/typography.css via theme.css import.
+ */
+.mw-1000 {
+  width: 100%;
+  max-width: var(--width-content);
+}
+
+/**
+ * Paragraph Use Heading Font? (`font-heading`).
+ */
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+/**
+ * Glass-panel utilities applied via Additional CSS class(es)
+ */
+.bg-white\/10 {
+  background-color: color-mix(in oklab, var(--color-white) 10%, transparent);
+}
+
+.backdrop-blur-sm {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.border {
+  border-style: solid;
+  border-width: 1px;
+}
+
+.border-white\/20 {
+  border-color: color-mix(in oklab, var(--color-white) 20%, transparent);
+}
+
+.rounded-lg {
+  border-radius: var(--radius-surface);
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+/**
+ * core/button editor preview
+ */
+.wp-block-button.btn > .wp-block-button__link,
+.wp-block-button[class*='btn-'] > .wp-block-button__link {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: var(--padding-btn-y) var(--padding-btn-x) !important;
+  border-radius: var(--radius-surface) !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  font-family: var(--font-heading) !important;
+  font-size: var(--font-size-btn) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.025em;
+  text-transform: uppercase !important;
+  box-sizing: border-box;
+  height: auto;
+}
+
+.wp-block-button.btn-primary > .wp-block-button__link,
+.wp-block-button.btn-primary-alt > .wp-block-button__link {
+  background-color: var(--color-primary) !important;
+  background-image: none !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.wp-block-button.btn-primary > .wp-block-button__link:hover,
+.wp-block-button.btn-primary-alt > .wp-block-button__link:hover {
+  background-color: var(--color-primary-dark) !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-primary-dark) !important;
+}
+
+.wp-block-button.btn-secondary > .wp-block-button__link {
+  background-color: var(--color-secondary) !important;
+  background-image: none !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-secondary) !important;
+}
+
+.wp-block-button.btn-secondary > .wp-block-button__link:hover {
+  background-color: var(--color-primary) !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.wp-block-button.btn-outline > .wp-block-button__link,
+.wp-block-button.btn-outline-primary > .wp-block-button__link {
+  background-color: var(--color-white) !important;
+  background-image: none !important;
+  color: var(--color-secondary) !important;
+  border-color: var(--color-line-strong) !important;
+}
+
+.wp-block-button.btn-outline > .wp-block-button__link:hover,
+.wp-block-button.btn-outline-primary > .wp-block-button__link:hover {
+  background-color: var(--color-white) !important;
+  color: var(--color-secondary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.wp-block-button.btn-white > .wp-block-button__link {
+  background-color: var(--color-white) !important;
+  background-image: none !important;
+  color: var(--color-secondary) !important;
+  border-color: var(--color-white) !important;
+}
+
+.wp-block-button.btn-white > .wp-block-button__link:hover {
+  background-color: var(--color-light) !important;
+  color: var(--color-secondary) !important;
+  border-color: var(--color-light) !important;
+}
+
+.wp-block-button.btn-sm > .wp-block-button__link {
+  padding: var(--padding-btn-sm-y) var(--padding-btn-sm-x) !important;
+  font-size: var(--font-size-btn) !important;
+  font-weight: 700 !important;
+}
+
+.wp-block-button.btn-full,
+.wp-block-button.btn-full > .wp-block-button__link,
+.wp-block-button.btn-full > a {
+  width: 100% !important;
+}
+
+/**
+ * Include icon — editor canvas can't receive the PHP-injected sprite (<use href="#icon-arrow-insert">), so mirror it with a mask of the same path from footer-icons. Frontend renders the real SVG.
+ */
+.wp-block-button.btn-has-icon > .wp-block-button__link::after {
+  content: '';
+  display: inline-block;
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='black' d='M3.265 0c-1.443 0-2.612 1.17-2.612 2.612s1.169 2.612 2.612 2.612h19.816l-22.316 22.317c-1.020 1.020-1.020 2.674 0 3.694s2.674 1.021 3.694 0l22.316-22.316v19.817c0 1.443 1.17 2.612 2.612 2.612s2.612-1.169 2.612-2.612v-26.123c0-0.208-0.025-0.41-0.071-0.605-0.013-0.054-0.025-0.108-0.041-0.161-0.039-0.127-0.091-0.249-0.148-0.367-0.050-0.104-0.106-0.206-0.171-0.304-0.237-0.359-0.559-0.657-0.939-0.862-0.036-0.019-0.073-0.036-0.11-0.054-0.118-0.057-0.24-0.109-0.367-0.148-0.053-0.016-0.107-0.028-0.161-0.041-0.030-0.007-0.059-0.014-0.089-0.020-0.005-0.001-0.010-0.002-0.015-0.003l-0.232-0.036c-0.088-0.009-0.178-0.013-0.268-0.013h-26.123z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='black' d='M3.265 0c-1.443 0-2.612 1.17-2.612 2.612s1.169 2.612 2.612 2.612h19.816l-22.316 22.317c-1.020 1.020-1.020 2.674 0 3.694s2.674 1.021 3.694 0l22.316-22.316v19.817c0 1.443 1.17 2.612 2.612 2.612s2.612-1.169 2.612-2.612v-26.123c0-0.208-0.025-0.41-0.071-0.605-0.013-0.054-0.025-0.108-0.041-0.161-0.039-0.127-0.091-0.249-0.148-0.367-0.050-0.104-0.106-0.206-0.171-0.304-0.237-0.359-0.559-0.657-0.939-0.862-0.036-0.019-0.073-0.036-0.11-0.054-0.118-0.057-0.24-0.109-0.367-0.148-0.053-0.016-0.107-0.028-0.161-0.041-0.030-0.007-0.059-0.014-0.089-0.020-0.005-0.001-0.010-0.002-0.015-0.003l-0.232-0.036c-0.088-0.009-0.178-0.013-0.268-0.013h-26.123z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/**
+ * Button Align / Position — Blockstudio sets `w-full flex justify-*` on `.wp-block-button`.
+ */
+.wp-block-button.w-full {
+  width: 100% !important;
+}
+
+.wp-block-button.flex {
+  display: flex !important;
+}
+
+.wp-block-button.justify-center {
+  justify-content: center !important;
+}
+
+@media (width >= 768px) {
+  .wp-block-button.md\:justify-end {
+    justify-content: flex-end !important;
+  }
+}

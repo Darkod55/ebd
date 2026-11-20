@@ -1,0 +1,102 @@
+/**
+ * Sticky contact FAB — right-edge pills that expand on hover/focus.
+ */
+.mpx-contact-fab {
+  position: fixed;
+  right: 0;
+  top: 72%;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
+@media (width >= theme(--breakpoint-lg)) {
+  .mpx-contact-fab {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.mpx-contact-fab__btn {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  height: 3.25rem;
+  padding-inline: 0.95rem;
+  gap: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--color-black);
+  background-color: var(--color-white);
+  border-radius: 9999px 0 0 9999px;
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--color-black) 18%, transparent);
+  transition:
+    gap 0.3s ease,
+    padding-inline 0.3s ease,
+    box-shadow 0.2s ease;
+}
+
+.mpx-contact-fab__btn:hover,
+.mpx-contact-fab__btn:focus-visible {
+  gap: 0.75rem;
+  padding-inline: 1rem 1.25rem;
+  box-shadow: 0 6px 22px color-mix(in srgb, var(--color-black) 24%, transparent);
+  outline: none;
+}
+
+.mpx-contact-fab__btn:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--color-white),
+    0 0 0 4px var(--color-primary),
+    0 6px 22px color-mix(in srgb, var(--color-black) 24%, transparent);
+}
+
+.mpx-contact-fab__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 1.375rem;
+  height: 1.375rem;
+  color: inherit;
+
+  & svg {
+    display: block;
+    width: 1.375rem;
+    height: 1.375rem;
+    fill: currentColor;
+  }
+}
+
+.mpx-contact-fab__label {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  transition:
+    max-width 0.3s ease,
+    opacity 0.2s ease;
+}
+
+.mpx-contact-fab__btn:hover .mpx-contact-fab__label,
+.mpx-contact-fab__btn:focus-visible .mpx-contact-fab__label {
+  max-width: 10rem;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mpx-contact-fab__btn,
+  .mpx-contact-fab__label {
+    transition: none;
+  }
+}

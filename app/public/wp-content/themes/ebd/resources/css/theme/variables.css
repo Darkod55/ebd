@@ -1,0 +1,76 @@
+/**
+ * Theme design tokens — colours, spacing, layout, radii, type.
+ *
+ * Human edits: docs/design-tokens.md (§ Active brand tokens / type scale).
+ * This file is the runtime CSS the agent writes from that playbook.
+ *
+ * `@theme static` + `--color-*: initial` keeps only these brand colours in
+ * the generated theme.json palette (and as Tailwind utilities).
+ *
+ * Consume via var(--…).
+ */
+
+@theme static {
+  --color-*: initial;
+
+  --color-primary: #3D55D6;
+  --color-primary-dark: #2A3FB0;
+  --color-secondary: #13183A;
+  --color-tertiary: #7A3EC8;
+  --color-tertiary-light: #B79CF0;
+  --color-gray: #F5F6FB;
+  --color-light: #EEF1FE;
+  --color-line: #E3E6F0;
+  --color-line-strong: #C5CCE8;
+  --color-body: #3A4058;
+  --color-muted: #5B627A;
+  --color-on-dark: #C9D0F2;
+  --color-white: #fff;
+  --color-black: #000;
+
+  /**
+   * Fluid section padding.
+   */
+  --spacing-clamp-inline: 24px;
+  --spacing-clamp-block: 64px;
+  --spacing-clamp-block-xl: 104px;
+
+  /**
+   * Layout widths.
+   * --width-container → `.container` + editor canvas mirrors
+   * --width-content   → `.mw-1000` (one-column / paragraph limit)
+   */
+  --width-container: 1288px;
+  --width-content: 760px;
+
+  /**
+   * Shared corner radius (buttons, inputs, cards, images, panels…).
+   * Tailwind: `rounded-surface`.
+   */
+  --radius-surface: 20px;
+
+  /**
+   * Surface padding (cards, FAQ cards, column cells, bleed calc).
+   * Use --padding-surface-lg from `lg` up.
+   */
+  --padding-surface: 28px;
+  --padding-surface-lg: 40px;
+
+  /**
+   * Button metrics.
+   */
+  --padding-btn-y: 13px;
+  --padding-btn-x: 26px;
+  --padding-btn-sm-y: 10px;
+  --padding-btn-sm-x: 18px;
+  --font-size-btn: 16px;
+
+  /**
+   * Body text scale (`.fs-*` field classes).
+   * --font-size-lead is fluid (type scale fs-lead: 17px / 18px, vmin 768 / vmax 1288).
+   */
+  --font-size-xs: 13px;
+  --font-size-sm: 15px;
+  --font-size-base: 16px;
+  --font-size-lead: clamp(1.0625rem, 0.9702rem + 0.1923vw, 1.125rem);
+}

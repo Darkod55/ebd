@@ -1,0 +1,28 @@
+/**
+ * Self-hosted webfonts (resources/fonts/)
+ *
+ * Relative urls so Vite fingerprints files into public/build/assets/.
+ */
+@font-face {
+  font-family: 'Raleway';
+  src: url('../../fonts/Raleway-VariableFont_wght.woff2') format('woff2');
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Lora';
+  src: url('../../fonts/Lora-VariableFont_wght.woff2') format('woff2');
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  /**
+   * Font families.
+   */
+  --font-sans: 'Raleway', ui-sans-serif, system-ui, sans-serif;
+  --font-heading: 'Lora', ui-serif, Georgia, serif;
+}

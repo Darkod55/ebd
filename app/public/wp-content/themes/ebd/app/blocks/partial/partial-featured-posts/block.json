@@ -1,0 +1,129 @@
+{
+  "$schema": "https://blockstudio.dev/schema/block",
+  "name": "mpx/partial-featured-posts",
+  "title": "Featured Posts",
+  "category": "metapixels-partials",
+  "icon": "star-filled",
+  "description": "Carousel (or grid) of all Featured Post items: portrait image + Read more opens a modal with that post’s content. Reuses the Cards slider layout.",
+  "keywords": [
+    "featured",
+    "posts",
+    "carousel",
+    "slider",
+    "modal",
+    "cards"
+  ],
+  "supports": {
+    "html": false,
+    "lock": false
+  },
+  "blockstudio": {
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><rect width=\"24\" height=\"24\" rx=\"3\" fill=\"#101920\"/><rect x=\"3.5\" y=\"4\" width=\"7\" height=\"16\" rx=\"1.25\" fill=\"#FF884B\"/><rect x=\"13.5\" y=\"4\" width=\"7\" height=\"16\" rx=\"1.25\" fill=\"#FF884B\" opacity=\"0.7\"/><rect x=\"5\" y=\"16.5\" width=\"4\" height=\"1.5\" rx=\"0.5\" fill=\"#101920\"/><rect x=\"15\" y=\"16.5\" width=\"4\" height=\"1.5\" rx=\"0.5\" fill=\"#101920\"/></svg>",
+    "attributes": [
+      {
+        "type": "group",
+        "title": "Card Controls",
+        "attributes": [
+          {
+            "id": "use_gradient_bg",
+            "type": "toggle",
+            "label": "Gradient background",
+            "help": "Brand primary → tertiary gradient on every card (overrides solid card background). Best with white text and btn-white.",
+            "default": false
+          },
+          {
+            "type": "custom/background_colour",
+            "overrides": {
+              "bg_colour": {
+                "label": "Card background"
+              }
+            },
+            "conditions": [
+              [
+                {
+                  "id": "use_gradient_bg",
+                  "operator": "!=",
+                  "value": true
+                }
+              ]
+            ]
+          },
+          {
+            "id": "enable_slider",
+            "type": "toggle",
+            "label": "Enable slider",
+            "help": "Frontend only: horizontal carousel with bullet pagination. Advances one card at a time (even when several are visible). Editor always shows a wrapping card grid.",
+            "default": true
+          },
+          {
+            "id": "autoplay",
+            "type": "toggle",
+            "label": "Autoplay",
+            "help": "Advance pages every few seconds. Reverses direction at each end (ping-pong). Pauses on hover/focus and when reduced-motion is preferred.",
+            "default": false,
+            "conditions": [
+              [
+                {
+                  "id": "enable_slider",
+                  "operator": "==",
+                  "value": true
+                }
+              ]
+            ]
+          },
+          {
+            "id": "slides_desktop",
+            "type": "select",
+            "label": "Slides per view (desktop)",
+            "help": "How many cards are fully visible at once on large screens. No peek of the next card.",
+            "default": "4",
+            "returnFormat": "value",
+            "options": [
+              { "value": "1", "label": "1" },
+              { "value": "2", "label": "2" },
+              { "value": "3", "label": "3" },
+              { "value": "4", "label": "4" },
+              { "value": "5", "label": "5" },
+              { "value": "6", "label": "6" }
+            ],
+            "conditions": [
+              [
+                {
+                  "id": "enable_slider",
+                  "operator": "==",
+                  "value": true
+                }
+              ]
+            ]
+          },
+          {
+            "id": "slides_tablet",
+            "type": "select",
+            "label": "Slides per view (tablet)",
+            "help": "How many cards are fully visible at once on tablet. Mobile always shows 1.",
+            "default": "2",
+            "returnFormat": "value",
+            "options": [
+              { "value": "1", "label": "1" },
+              { "value": "2", "label": "2" },
+              { "value": "3", "label": "3" },
+              { "value": "4", "label": "4" }
+            ],
+            "conditions": [
+              [
+                {
+                  "id": "enable_slider",
+                  "operator": "==",
+                  "value": true
+                }
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "type": "custom/grid_controls"
+      }
+    ]
+  }
+}

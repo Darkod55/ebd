@@ -1,0 +1,98 @@
+/**
+ * Button components
+ *
+ * Variants (default → hover):
+ * 1. btn-primary   — primary fill / white text → primary-dark fill / white text
+ * 2. btn-secondary — secondary fill / white text → primary fill / white text
+ * 3. btn-outline   — white fill / secondary text / line-strong border → primary border
+ * 4. btn-white     — white fill / secondary text → light fill / secondary text
+ *
+ * Legacy: btn-primary-alt → btn-primary; btn-outline-primary → btn-outline.
+ */
+
+@layer components {
+  :is(
+    a.btn,
+    button.btn,
+    .wp-block-button.btn > .wp-block-button__link,
+    .wp-block-button[class*='btn-'] > .wp-block-button__link
+  ) {
+    @apply inline-flex! items-center justify-center gap-2 font-heading font-bold uppercase tracking-wide no-underline! shadow-none! transition-colors disabled:cursor-not-allowed disabled:opacity-50 rounded-surface text-center! border border-transparent;
+    padding: var(--padding-btn-y) var(--padding-btn-x) !important;
+    font-size: var(--font-size-btn);
+  }
+
+  :is(
+    a.btn-primary,
+    button.btn-primary,
+    .wp-block-button.btn-primary > .wp-block-button__link,
+    /* Legacy alias of primary. */
+    a.btn-primary-alt,
+    button.btn-primary-alt,
+    .wp-block-button.btn-primary-alt > .wp-block-button__link
+  ) {
+    @apply border-primary bg-primary text-white hover:border-primary-dark hover:bg-primary-dark hover:text-white;
+  }
+
+  :is(
+    a.btn-secondary,
+    button.btn-secondary,
+    .wp-block-button.btn-secondary > .wp-block-button__link
+  ) {
+    @apply border-secondary bg-secondary text-white hover:border-primary hover:bg-primary hover:text-white;
+  }
+
+  :is(
+    a.btn-outline,
+    button.btn-outline,
+    .wp-block-button.btn-outline > .wp-block-button__link,
+    /* Legacy alias. */
+    a.btn-outline-primary,
+    button.btn-outline-primary,
+    .wp-block-button.btn-outline-primary > .wp-block-button__link
+  ) {
+    @apply border-line-strong bg-white text-secondary hover:border-primary hover:bg-white hover:text-secondary;
+  }
+
+  :is(
+    a.btn-white,
+    button.btn-white,
+    .wp-block-button.btn-white > .wp-block-button__link
+  ) {
+    @apply border-white bg-white text-secondary hover:border-light hover:bg-light hover:text-secondary;
+  }
+
+  /**
+   * Size modifier - combine with a colour variant
+   */
+  :is(
+    a.btn-sm,
+    button.btn-sm,
+    .wp-block-button.btn-sm > .wp-block-button__link
+  ) {
+    @apply font-bold;
+    padding: var(--padding-btn-sm-y) var(--padding-btn-sm-x) !important;
+    font-size: var(--font-size-btn);
+  }
+
+  /**
+   * Full-width (Blockstudio "Full Width?" toggle).
+   */
+  :is(
+    .btn-full,
+    .wp-block-button.btn-full > .wp-block-button__link,
+    .wp-block-button.btn-full > a
+  ) {
+    @apply w-full;
+  }
+
+  /**
+   * Include icon (Blockstudio toggle) — arrow-insert from footer-icons sprite, injected after the link text in moveCoreButtonClassesToLink().
+   */
+  :is(
+    a.btn-has-icon > .icon,
+    button.btn-has-icon > .icon
+  ) {
+    flex-shrink: 0;
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "$schema": "https://blockstudio.dev/schema/block",
+  "name": "mpx/hero-v2",
+  "title": "Hero V2",
+  "category": "metapixels-blocks",
+  "icon": "format-image",
+  "description": "Hero with a stacked photo + copy on mobile/tablet, and a cinematic full-bleed photo with left brand scrim on desktop.",
+  "keywords": ["hero", "banner", "header", "image", "overlay", "cinematic"],
+  "supports": {
+    "html": false,
+    "align": ["full"],
+    "anchor": true
+  },
+  "blockstudio": {
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><rect width=\"24\" height=\"24\" rx=\"3\" fill=\"#101920\"/><rect x=\"3.25\" y=\"4.25\" width=\"17.5\" height=\"15.5\" rx=\"1.5\" stroke=\"#FF884B\" stroke-width=\"1.5\"/><path d=\"M3.25 14.5h10.5\" stroke=\"#FF884B\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><circle cx=\"16.5\" cy=\"9\" r=\"2\" fill=\"#FF884B\"/></svg>",
+    "attributes": [
+      {
+        "type": "group",
+        "title": "Image",
+        "attributes": [
+          {
+            "id": "hero_image",
+            "type": "files",
+            "label": "Background image",
+            "help": "Used on tablet and desktop (and on mobile if no mobile image is set). Full-bleed on desktop — prefer a subject framed toward the right.",
+            "allowedTypes": ["image"],
+            "multiple": false,
+            "returnFormat": "object"
+          },
+          {
+            "id": "hero_image_mobile",
+            "type": "files",
+            "label": "Mobile image",
+            "help": "Optional. Shown only on mobile. If empty, the background image above is used.",
+            "allowedTypes": ["image"],
+            "multiple": false,
+            "returnFormat": "object"
+          },
+          {
+            "id": "image_position_x",
+            "type": "range",
+            "label": "Horizontal (desktop)",
+            "help": "0% = left, 100% = right. Used on all breakpoints unless tablet/mobile overrides are enabled.",
+            "default": 100,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "allowReset": true
+          },
+          {
+            "id": "image_position_y",
+            "type": "range",
+            "label": "Vertical (desktop)",
+            "help": "0% = top, 100% = bottom. Used on all breakpoints unless tablet/mobile overrides are enabled.",
+            "default": 50,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "allowReset": true
+          },
+          {
+            "id": "custom_position_tablet",
+            "type": "toggle",
+            "label": "Custom tablet position",
+            "help": "Override image position from tablet up to desktop. Off = use desktop values.",
+            "default": false
+          },
+          {
+            "id": "image_position_x_tablet",
+            "type": "range",
+            "label": "Horizontal (tablet)",
+            "help": "0% = left, 100% = right. Reset to inherit the desktop horizontal value.",
+            "default": 100,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "allowReset": true,
+            "required": false,
+            "conditions": [
+              [
+                {
+                  "id": "custom_position_tablet",
+                  "operator": "==",
+                  "value": true
+                }
+              ]
+            ]
+          },
+          {
+            "id": "image_position_y_tablet",
+            "type": "range",
+            "label": "Vertical (tablet)",
+            "help": "0% = top, 100% = bottom. Reset to inherit the desktop vertical value.",
+            "default": 50,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "allowReset": true,
+            "required": false,
+            "conditions": [
+              [
+                {
+                  "id": "custom_position_tablet",
+                  "operator": "==",
+                  "value": true
+                }
+              ]
+            ]
+          },
+          {
+            "id": "custom_position_mobile",
+            "type": "toggle",
+            "label": "Custom mobile position",
+            "help": "Override image position on mobile. Off = use desktop values.",
+            "default": false
+          },
+          {
+            "id": "image_position_x_mobile",
+            "type": "range",
+            "label": "Horizontal (mobile)",
+            "help": "0% = left, 100% = right. Reset to inherit the desktop horizontal value.",
+            "default": 100,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "allowReset": true,
+            "required": false,
+            "conditions": [
+              [
+                {
+                  "id": "custom_position_mobile",
+                  "operator": "==",
+                  "value": true
+                }
+              ]
+            ]
+          },
+          {
+            "id": "image_position_y_mobile",
+            "type": "range",
+            "label": "Vertical (mobile)",
+            "help": "0% = top, 100% = bottom. Reset to inherit the desktop vertical value.",
+            "default": 50,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "allowReset": true,
+            "required": false,
+            "conditions": [
+              [
+                {
+                  "id": "custom_position_mobile",
+                  "operator": "==",
+                  "value": true
+                }
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "title": "Scrim",
+        "attributes": [
+          {
+            "type": "custom/background_colour",
+            "overrides": {
+              "bg_colour": {
+                "label": "Scrim colour",
+                "default": {
+                  "value": "var(--color-primary)",
+                  "name": "Primary",
+                  "slug": "bg-primary"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "title": "Content",
+        "attributes": [
+          {
+            "type": "custom/section_padding",
+            "overrides": {
+              "section_padding": {
+                "default": ["py-clamp-xl"]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
