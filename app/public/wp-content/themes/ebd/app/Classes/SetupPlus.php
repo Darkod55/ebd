@@ -43,6 +43,9 @@ if (!class_exists('App\SetupPlus')) {
          */
         public function dequeueBlockEditorAssets()
         {
+            // Logged-out visitors also pass through App\FrontendCleanup.
+            // This method still runs for logged-in users. Comment it out
+            // as well if you want the block library CSS back for everyone.
             foreach ([
                 'wp-block-library',
                 'wp-block-library-theme',

@@ -15,6 +15,7 @@
 @import "./theme/typography.css";
 @import "./theme/posts.css";
 @import "./theme/global.css";
+@import "./theme/issue.css";
 /* Outside theme/ so Blockstudio's bridgeTailwindConfig() glob does not re-emit it. */
 @import "./components/mpx-subheading.css";
 @import "./components/contact-fab.css";

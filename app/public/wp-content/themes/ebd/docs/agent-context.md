@@ -28,9 +28,9 @@ Read docs/agent-context.md in this theme. Active identity is filled in (project,
 
 ```text
 # Required for apply
-project: Elita Konsalting
-slug: elita-konsalting
-theme_name: elita-konsalting
+project: Ethical Brand Directory
+slug: ebd
+theme_name: Ethical Brand Directory
 
 # Optional
 old_slug: cpj

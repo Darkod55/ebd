@@ -1,0 +1,43 @@
+/**
+ * Static Issue 01 demo.
+ * Colour and type come from the theme tokens. Swap the palette in
+ * docs/design-tokens.md, not here.
+ */
+
+.issue-kicker {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+}
+
+.issue-cover .issue-kicker {
+  color: var(--color-primary);
+}
+
+.issue-rule {
+  display: block;
+  width: 3rem;
+  height: 1px;
+  margin: 0;
+  border: 0;
+  background: var(--color-primary);
+}
+
+.issue-ad {
+  border: 1px dashed var(--color-line-strong);
+  background: var(--color-light);
+  color: var(--color-muted);
+  text-align: center;
+  padding: var(--padding-surface);
+}
+
+.issue-swatch {
+  aspect-ratio: 4 / 5;
+  background: var(--color-light);
+  border: 1px solid var(--color-line);
+}
