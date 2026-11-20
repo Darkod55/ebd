@@ -22,6 +22,10 @@ Unsplash photographs are used under the [Unsplash Licence](https://unsplash.com/
 | `Still_Desert_Road_Placeholder_EBD_Magazine_2026` | https://images.unsplash.com/photo-1500530855697-b586d89ba3ee |
 | `Still_Street_Style_Placeholder_EBD_Magazine_2026` | https://images.unsplash.com/photo-1469334031218-e382a71b716b |
 | `Still_Table_Placeholder_EBD_Magazine_2026` | https://images.unsplash.com/photo-1414235077428-338989a2e8c0 |
+| `Still_Night_Wheel_Placeholder_EBD_Magazine_2026` | https://images.unsplash.com/photo-1449965408869-eaa3f722e40d |
+| `Still_Workshop_Placeholder_EBD_Magazine_2026` | https://images.unsplash.com/photo-1558618666-fcd25c85cd64 |
+| `Still_Hospitality_Placeholder_EBD_Magazine_2026` | https://images.unsplash.com/photo-1470337458703-46ad1756a187 |
+| `Still_Skyline_Placeholder_EBD_Magazine_2026` | https://images.unsplash.com/photo-1514565131-fce0801e5785 |
 
 Supplied by the client, resized here. Not Unsplash.
 

@@ -404,6 +404,9 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
                 if (in_array($spread['layout'], ['article-opener', 'article-opener-banner', 'article-with-half-ad', 'pull-quote'], true)) {
                     $cols = 1;
                 }
+                if (($spread['layout'] ?? '') === 'article-editorial') {
+                    $cols = max(1, (int) ($spread['text_cols'] ?? 2));
+                }
 
                 $allWords = str_word_count(wp_strip_all_tags(
                     (string) ($piece['standfirst'] ?? '').' '.implode(' ', array_column($piece['blocks'], 'text'))
@@ -417,6 +420,7 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
                     'show_title' => $showTitle,
                     'heading' => $showTitle ? (string) $piece['title'] : (string) ($piece['kicker'] ?? 'Continued'),
                     'dek' => $showTitle ? (string) ($piece['standfirst'] ?? '') : '',
+                    'article_title' => (string) $piece['title'],
                     'kicker' => $data['kicker'] ?? (string) ($piece['kicker'] ?? ''),
                     'byline' => $showTitle ? (string) ($piece['byline'] ?? '') : '',
                     'role' => (string) ($piece['role'] ?? ''),
