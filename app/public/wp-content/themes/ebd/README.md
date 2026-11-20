@@ -53,6 +53,8 @@ Comments and pingbacks are off for everyone, including wp-admin, via `disableCom
 
 The list of spreads is `app/issues/issue-01.php`. Append an item to add a spread. `layout` is the Blade file `resources/views/issue/layouts/{layout}.blade.php`. The three placeholders are `full-bleed`, `split`, and `closing`. A new layout is a new file plus that name in the config. Nothing else is registered.
 
+Issue 01 copy is in that file (the teaser) and `app/issues/articles.php` (the full piece). `Read more` goes to `/issue-01/{slug}/read/`. Author text is kept as supplied.
+
 `thumbnail` is `null` or an image URL for the overview strip. `article.demo` links the spread to a scrolling page (`article`, `article-picks`, `the-edit`, …). `article.url` can be a full URL instead, for a future permalink.
 
 From 1024px wide (`64rem`) up — laptop and desktop — the spread is exactly one viewport (`100vh`, then `100svh`, then `100dvh`) and does not scroll. Below 1024px — tablet and mobile — the spread may grow and the page scrolls. The bottom bar stays fixed, including the iOS safe-area inset, and the page reserves that height so it does not cover the spread.

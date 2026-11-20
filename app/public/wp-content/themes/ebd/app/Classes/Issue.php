@@ -18,7 +18,7 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
     {
         private static $instance;
 
-        public const REWRITE_VERSION = '1';
+        public const REWRITE_VERSION = '2';
 
         /**
          * Issue constructor.
@@ -36,6 +36,11 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
          */
         public function registerRewrites(): void
         {
+            add_rewrite_rule(
+                '^issue-([0-9]+)/([^/]+)/read/?$',
+                'index.php?ebd_issue=$matches[1]&ebd_spread=$matches[2]&ebd_read=1',
+                'top'
+            );
             add_rewrite_rule(
                 '^issue-([0-9]+)/([^/]+)/?$',
                 'index.php?ebd_issue=$matches[1]&ebd_spread=$matches[2]',
@@ -71,6 +76,7 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
         {
             $vars[] = 'ebd_issue';
             $vars[] = 'ebd_spread';
+            $vars[] = 'ebd_read';
 
             return $vars;
         }
@@ -105,8 +111,23 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
             global $wp_query;
             $wp_query->is_404 = false;
 
-            $title = $model['spread']['title'] . ' — ' . $model['issue_title'];
-            $canonical = $model['spread']['url'];
+            $isRead = (string) get_query_var('ebd_read') === '1';
+            $piece = null;
+
+            if ($isRead) {
+                $piece = self::piece($model['spread']['read_key'] ?? '');
+                if ($piece === null) {
+                    global $wp_query;
+                    $wp_query->set_404();
+                    status_header(404);
+                    nocache_headers();
+                    echo \view('404')->render();
+                    exit;
+                }
+            }
+
+            $title = ($isRead ? $piece['title'] : $model['spread']['title']) . ' — ' . $model['issue_title'];
+            $canonical = $isRead ? self::url($model['issue_slug'], $model['spread']['slug'] . '/read') : $model['spread']['url'];
 
             add_filter('pre_get_document_title', static function () use ($title) {
                 return $title;
@@ -114,8 +135,19 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
             add_filter('get_canonical_url', static function () use ($canonical) {
                 return $canonical;
             });
+            remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10);
 
             status_header(200);
+
+            if ($isRead) {
+                echo \view('issue.article', [
+                    'piece' => $piece,
+                    'issue_title' => $model['issue_title'],
+                    'spread_url' => $model['spread']['url'],
+                ])->render();
+                exit;
+            }
+
             echo \view('issue.spread', $model)->render();
             exit;
         }
@@ -168,7 +200,7 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
                     'title' => $item['title'],
                     'number' => $i + 1,
                     'url' => self::url($issueSlug, $item['slug']),
-                    'thumbnail' => $item['thumbnail'] ?? null,
+                    'thumbnail' => self::publicImage($item['thumbnail'] ?? null),
                     'current' => $i === $index,
                 ];
             }
@@ -181,9 +213,12 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
             }
 
             $article = is_array($current['article'] ?? null) ? $current['article'] : [];
+            $readKey = is_string($article['read'] ?? null) ? $article['read'] : '';
             $articleUrl = '';
 
-            if (! empty($article['url']) && is_string($article['url'])) {
+            if ($readKey !== '') {
+                $articleUrl = self::url($issueSlug, $current['slug'] . '/read');
+            } elseif (! empty($article['url']) && is_string($article['url'])) {
                 $articleUrl = $article['url'];
             } elseif (! empty($article['demo']) && is_string($article['demo'])) {
                 $articleUrl = DemoCatalog::url($article['demo']);
@@ -196,9 +231,10 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
                 'number' => $index + 1,
                 'total' => $total,
                 'url' => $spreads[$index]['url'],
-                'thumbnail' => $current['thumbnail'] ?? null,
+                'thumbnail' => self::publicImage($current['thumbnail'] ?? null),
+                'read_key' => $readKey,
                 'article_url' => $articleUrl,
-                'article_label' => (string) ($article['label'] ?? ''),
+                'article_label' => (string) ($article['label'] ?? 'Read more'),
                 'data' => is_array($current['data'] ?? null) ? $current['data'] : [],
                 'prev' => $index > 0 ? $spreads[$index - 1] : null,
                 'next' => $index < $total - 1 ? $spreads[$index + 1] : null,
@@ -219,11 +255,69 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
         public static function menu(): array
         {
             return [
-                ['label' => 'Placeholder · Contact', 'url' => DemoCatalog::url('contact')],
-                ['label' => 'Placeholder · About', 'url' => DemoCatalog::url('about')],
-                ['label' => 'Placeholder · The Edit', 'url' => DemoCatalog::url('the-edit')],
-                ['label' => 'Placeholder · Contributors', 'url' => DemoCatalog::url('contributors')],
+                ['label' => 'Contact', 'url' => DemoCatalog::url('contact')],
+                ['label' => 'The Edit', 'url' => self::url('issue-01', 'the-edit/read')],
+                ['label' => 'Contributors', 'url' => self::url('issue-01', 'contributors/read')],
             ];
+        }
+
+        /**
+         * @return array<string, mixed>|null
+         */
+        public static function piece(string $key): ?array
+        {
+            if ($key === '' || ! preg_match('/^[a-z0-9-]+$/', $key)) {
+                return null;
+            }
+
+            $all = self::articles();
+
+            return is_array($all[$key] ?? null) ? $all[$key] : null;
+        }
+
+        /**
+         * @return array<string, array<string, mixed>>
+         */
+        public static function articles(): array
+        {
+            $path = dirname(__DIR__) . '/issues/articles.php';
+
+            if (! is_readable($path)) {
+                return [];
+            }
+
+            $articles = require $path;
+
+            return is_array($articles) ? $articles : [];
+        }
+
+        /**
+         * Theme file URI for an optimised issue image. Pass the webp filename.
+         */
+        public static function image(string $file): string
+        {
+            return get_theme_file_uri('resources/images/issue-01/' . ltrim($file, '/'));
+        }
+
+        public static function imageAvif(string $file): string
+        {
+            return self::image((string) preg_replace('/\.webp$/', '.avif', $file));
+        }
+
+        /**
+         * @param mixed $file
+         */
+        public static function publicImage($file): ?string
+        {
+            if (! is_string($file) || $file === '') {
+                return null;
+            }
+
+            if (str_contains($file, '/')) {
+                return $file;
+            }
+
+            return self::image($file);
         }
 
         public static function url(string $issueSlug, string $spreadSlug): string

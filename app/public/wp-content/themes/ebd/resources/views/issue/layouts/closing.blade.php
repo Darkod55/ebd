@@ -6,6 +6,9 @@
   @if (! empty($data['dek']))
     <p class="issue-dek">{{ $data['dek'] }}</p>
   @endif
+  @if (! empty($data['byline']))
+    <p class="issue-spread-byline">{{ $data['byline'] }}</p>
+  @endif
   @if ($spread['article_url'])
     <p class="issue-article-row">
       <a class="issue-article" href="{{ $spread['article_url'] }}">{{ $spread['article_label'] }}</a>
