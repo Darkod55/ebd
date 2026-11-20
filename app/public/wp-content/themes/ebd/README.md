@@ -47,11 +47,25 @@ Do not commit `vendor/`, `node_modules/`, or `public/build/`.
 
 Comments and pingbacks are off for everyone, including wp-admin, via `disableCommentsAndPingbacks()` in the constructor. Comment that call to bring them back.
 
+## Issue reader
+
+`/issue-01/` is the cover. `/issue-01/cover` is the same spread. Every other spread is `/issue-01/{slug}/`. These are normal pages: they render without JavaScript, and each one is a real link.
+
+The list of spreads is `app/issues/issue-01.php`. Append an item to add a spread. `layout` is the Blade file `resources/views/issue/layouts/{layout}.blade.php`. The three placeholders are `full-bleed`, `split`, and `closing`. A new layout is a new file plus that name in the config. Nothing else is registered.
+
+`thumbnail` is `null` or an image URL for the overview strip. `article.demo` links the spread to a scrolling page (`article`, `article-picks`, `the-edit`, …). `article.url` can be a full URL instead, for a future permalink.
+
+From 1024px wide (`64rem`) up — laptop and desktop — the spread is exactly one viewport (`100vh`, then `100svh`, then `100dvh`) and does not scroll. Below 1024px — tablet and mobile — the spread may grow and the page scrolls. The bottom bar stays fixed, including the iOS safe-area inset, and the page reserves that height so it does not cover the spread.
+
+The bar is prev, `N / total` (a `<details>` overview of every spread), next, and Menu (contact and the other placeholder pages). Arrow keys, swipe, neighbour prefetch, and a short fade are the Alpine extras. `prefers-reduced-motion: reduce` does a normal page load instead. Esc or a click outside closes the overview.
+
+`/?ebd_demo=issue-01` redirects to `/issue-01/`. Permalinks flush once when the theme boots (`ebd_issue_rewrite`).
+
 ## Static demo → later data
 
-Placeholder copy is in `app/Classes/DemoCatalog.php`. Every string says Placeholder. Preview without creating pages:
+Placeholder copy for the other pages is in `app/Classes/DemoCatalog.php`. Every string says Placeholder. Preview without creating pages:
 
-- `/?ebd_demo=issue-01`
+- `/issue-01/` (and `/issue-01/opener`, `/picture`, `/colophon`, …)
 - `/?ebd_demo=article`
 - `/?ebd_demo=article-picks`
 - `/?ebd_demo=contributors`
@@ -64,7 +78,7 @@ The same files are page templates (`Template Name` in `resources/views/template-
 
 | Template | Later source |
 | --- | --- |
-| Issue 01 cover | Front page. `DemoCatalog::issue()` — kicker, title, deck, features. |
+| Issue 01 spreads | `app/issues/issue-01.php`. One row per spread. Layout Blade files in `resources/views/issue/layouts/`. |
 | Article | Single article. `article()` — author, role, toc, sections. |
 | Editor’s picks | Same article, plus a product repeater (`picks()`). |
 | Contributors | Contributor posts. `contributors()` — name, role, bio. |

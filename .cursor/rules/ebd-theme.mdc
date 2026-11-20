@@ -45,4 +45,4 @@ Paths below are theme-relative (`app/public/wp-content/themes/ebd/…`). Repo or
 - Core `button` / `image` look is owned by Blockstudio extensions + `setup.php` `block_type_metadata` stripping + `moveCoreButtonClassesToLink()`.
 - Match existing patterns; prefer theme utilities. Rebrand via `docs/design-tokens.md`.
 - Logged-out front-end cleanup: `app/Classes/FrontendCleanup.php`. One commented line restores one piece. See the theme `README.md`.
-- Static Issue 01 demo: `layouts/issue.blade.php`, `template-*.blade.php`, placeholder data in `app/Classes/DemoCatalog.php`. Preview with `/?ebd_demo=issue-01`.
+- Issue reader: `app/issues/issue-01.php` (spread list), `app/Classes/Issue.php` (URLs), `resources/views/issue/layouts/` (one Blade file per layout). Cover is `/issue-01/`. Desktop/laptop (`min-width: 64rem`) is one screen; below that the spread may scroll. Bottom bar is fixed.

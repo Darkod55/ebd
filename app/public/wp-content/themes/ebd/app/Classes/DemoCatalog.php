@@ -43,6 +43,13 @@ if (!class_exists(__NAMESPACE__.'\\DemoCatalog')) {
             }
 
             $key = isset($_GET['ebd_demo']) ? sanitize_key(wp_unslash($_GET['ebd_demo'])) : '';
+
+            // The magazine itself is /issue-01/, not this query preview.
+            if ($key === 'issue-01') {
+                wp_safe_redirect(home_url('/issue-01/'));
+                exit;
+            }
+
             $view = self::views()[$key] ?? null;
 
             if (! $view) {
@@ -94,6 +101,10 @@ if (!class_exists(__NAMESPACE__.'\\DemoCatalog')) {
          */
         public static function url(string $key): string
         {
+            if ($key === 'issue-01') {
+                return home_url(Issue::path('issue-01', 'cover'));
+            }
+
             return add_query_arg('ebd_demo', $key, home_url('/'));
         }
 
