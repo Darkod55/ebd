@@ -53,7 +53,7 @@ Comments and pingbacks are off for everyone, including wp-admin, via `disableCom
 
 The list of spreads is `app/issues/issue-01.php`. Append an item to add a spread. `layout` is the Blade file `resources/views/issue/layouts/{layout}.blade.php`. The three placeholders are `full-bleed`, `split`, and `closing`. A new layout is a new file plus that name in the config. Nothing else is registered.
 
-Issue 01 copy is in that file (the teaser) and `app/issues/articles.php` (the full piece). `Read more` goes to `/issue-01/{slug}/read/`. Author text is kept as supplied.
+Issue 01 is read inside the spreads. `app/issues/issue-01.php` is the running order. `Issue::hydrate()` pours each manuscript across those spreads, whole paragraphs at a time. Layout files live in `resources/views/issue/layouts/` (`cover-masthead`, `cover-framed`, `contents-index`, `letter-portrait`, `article-opener`, `article-opener-banner`, `article-two-column`, `article-three-column`, `article-with-half-ad`, `pull-quote`, `ad-full-bleed`, `ad-diagonal`, `ad-poster`, `brand-grid`, `contributors-grid`, `colophon-page`). `/issue-01/{slug}/read/` is the single-page fallback, linked from the last spread of an article. Image credits are in `resources/images/issue-01/CREDITS.md`.
 
 `thumbnail` is `null` or an image URL for the overview strip. `article.demo` links the spread to a scrolling page (`article`, `article-picks`, `the-edit`, …). `article.url` can be a full URL instead, for a future permalink.
 

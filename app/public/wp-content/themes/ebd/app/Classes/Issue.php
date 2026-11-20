@@ -176,14 +176,34 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
                 return null;
             }
 
+            $config['spreads'] = self::hydrate($config['spreads'], $issueSlug);
+
             $spreadSlug = sanitize_title($spreadSlug);
             $items = $config['spreads'];
             $index = null;
+
+            $public = [];
+            foreach ($items as $item) {
+                if (empty($item['study'])) {
+                    $public[] = $item;
+                }
+            }
+            $items = $public;
 
             foreach ($items as $i => $item) {
                 if ($item['slug'] === $spreadSlug) {
                     $index = $i;
                     break;
+                }
+            }
+
+            if ($index === null) {
+                foreach ($config['spreads'] as $item) {
+                    if (($item['slug'] ?? '') === $spreadSlug && ! empty($item['study'])) {
+                        $items = [$item];
+                        $index = 0;
+                        break;
+                    }
                 }
             }
 
@@ -247,6 +267,235 @@ if (!class_exists(__NAMESPACE__.'\\Issue')) {
                 'spreads' => $spreads,
                 'menu' => self::menu(),
             ];
+        }
+
+        /**
+         * Pour article text into the spreads that ask for it.
+         * Paragraphs stay whole. Anything left over becomes another two-column spread.
+         *
+         * @param array<int, array<string, mixed>> $spreads
+         * @return array<int, array<string, mixed>>
+         */
+        public static function hydrate(array $spreads, string $issueSlug): array
+        {
+            $catalog = self::articles();
+            $ads = self::ads();
+            $streams = [];
+
+            foreach ($catalog as $key => $piece) {
+                if (! empty($piece['blocks']) && is_array($piece['blocks'])) {
+                    $streams[$key] = array_values($piece['blocks']);
+                }
+            }
+
+            $cursors = [];
+            $openers = [];
+            $filled = [];
+
+            foreach ($spreads as $spread) {
+                $from = $spread['from'] ?? null;
+                if (! empty($spread['ending']) && is_string($from) && isset($streams[$from])) {
+                    $guard = 0;
+                    $budget = (int) ($spread['words'] ?? 220);
+                    while (self::wordsLeft($streams[$from], $cursors[$from] ?? 0) > ($budget + 70) && $guard < 8) {
+                        $filled[] = self::fillSpread([
+                            'slug' => $from.'-cont-'.($guard + 1),
+                            'from' => $from,
+                            'layout' => 'article-two-column',
+                            'words' => 280,
+                            'leave' => $budget,
+                            'placeholder' => false,
+                        ], $catalog, $ads, $streams, $cursors, $openers, $issueSlug);
+                        $guard++;
+                    }
+                }
+
+                $filled[] = self::fillSpread($spread, $catalog, $ads, $streams, $cursors, $openers, $issueSlug);
+            }
+
+            return $filled;
+        }
+
+        /**
+         * @param array<int, array<string, mixed>> $blocks
+         */
+        private static function wordsLeft(array $blocks, int $cursor): int
+        {
+            $words = 0;
+            for ($i = $cursor; $i < count($blocks); $i++) {
+                $words += str_word_count(wp_strip_all_tags((string) ($blocks[$i]['text'] ?? '')));
+            }
+
+            return $words;
+        }
+
+        /**
+         * @param array<string, mixed> $spread
+         * @param array<string, array<string, mixed>> $catalog
+         * @param array<string, array<string, mixed>> $ads
+         * @param array<string, array<int, array<string, mixed>>> $streams
+         * @param array<string, int> $cursors
+         * @param array<string, string> $openers
+         * @return array<string, mixed>
+         */
+        private static function fillSpread(array $spread, array $catalog, array $ads, array &$streams, array &$cursors, array &$openers, string $issueSlug): array
+        {
+            $data = is_array($spread['data'] ?? null) ? $spread['data'] : [];
+            $from = $spread['from'] ?? null;
+
+            if (is_string($from) && isset($streams[$from], $catalog[$from])) {
+                $piece = $catalog[$from];
+                $cursor = $cursors[$from] ?? 0;
+                $isFirst = $cursor === 0;
+                $budget = (int) ($spread['words'] ?? 220);
+                $blocks = $streams[$from];
+                $quote = null;
+
+                if (($spread['layout'] ?? '') === 'pull-quote') {
+                    foreach ($blocks as $j => $block) {
+                        if ($j < $cursor) {
+                            continue;
+                        }
+                        if (($block['type'] ?? '') === 'quote') {
+                            $quote = $block['text'];
+                            array_splice($blocks, $j, 1);
+                            $streams[$from] = $blocks;
+                            break;
+                        }
+                    }
+                }
+
+                $leave = (int) ($spread['leave'] ?? 0);
+                $taken = [];
+                $count = 0;
+                while ($cursor < count($blocks)) {
+                    $words = str_word_count(wp_strip_all_tags((string) $blocks[$cursor]['text']));
+                    $after = self::wordsLeft($blocks, $cursor + 1);
+                    if ($taken !== [] && $leave > 0 && $after < $leave) {
+                        break;
+                    }
+                    if ($taken !== [] && $leave === 0 && ($count + $words) > $budget) {
+                        break;
+                    }
+                    $taken[] = $blocks[$cursor];
+                    $count += $words;
+                    $cursor++;
+                    if ($count >= $budget) {
+                        break;
+                    }
+                }
+
+                $cursors[$from] = $cursor;
+                if ($isFirst) {
+                    $openers[$from] = (string) $spread['slug'];
+                    if (isset($taken[0]) && ($taken[0]['type'] ?? '') === 'p') {
+                        $taken[0]['drop'] = true;
+                    }
+                }
+
+                $cols = 2;
+                if (str_contains((string) $spread['layout'], 'three')) {
+                    $cols = 3;
+                }
+                if (in_array($spread['layout'], ['article-opener', 'article-opener-banner', 'article-with-half-ad', 'pull-quote'], true)) {
+                    $cols = 1;
+                }
+
+                $allWords = str_word_count(wp_strip_all_tags(
+                    (string) ($piece['standfirst'] ?? '').' '.implode(' ', array_column($piece['blocks'], 'text'))
+                ));
+
+                $data = array_merge($data, [
+                    'blocks' => $taken,
+                    'columns' => self::splitColumns($taken, $cols),
+                    'quote' => $quote,
+                    'continued' => ! $isFirst,
+                    'show_title' => $isFirst,
+                    'heading' => $isFirst ? (string) $piece['title'] : (string) ($piece['kicker'] ?? 'Continued'),
+                    'dek' => $isFirst ? (string) ($piece['standfirst'] ?? '') : '',
+                    'kicker' => $data['kicker'] ?? (string) ($piece['kicker'] ?? ''),
+                    'byline' => $isFirst ? (string) ($piece['byline'] ?? '') : '',
+                    'role' => (string) ($piece['role'] ?? ''),
+                    'words' => $allWords,
+                    'single_url' => $cursor >= count($streams[$from])
+                        ? self::url($issueSlug, ($openers[$from] ?? $spread['slug']).'/read')
+                        : '',
+                ]);
+
+                $spread['title'] = $isFirst
+                    ? (string) $piece['title']
+                    : (string) ($piece['kicker'] ?? 'Continued').' · continued';
+                $spread['article'] = ['read' => $from, 'label' => ''];
+            }
+
+            if (! empty($spread['ad']) && isset($ads[$spread['ad']])) {
+                $data['ad'] = $ads[$spread['ad']];
+                if (empty($spread['title'])) {
+                    $spread['title'] = 'Placeholder ad · '.$ads[$spread['ad']]['brand'];
+                }
+            }
+
+            if (($spread['layout'] ?? '') === 'contributors-grid') {
+                $data['people'] = $catalog['contributors']['people'] ?? [];
+            }
+
+            $spread['data'] = $data;
+
+            if (empty($spread['title'])) {
+                $spread['title'] = (string) ($data['heading'] ?? 'Spread');
+            }
+
+            return $spread;
+        }
+
+        /**
+         * @param array<int, array<string, mixed>> $blocks
+         * @return array<int, array<int, array<string, mixed>>>
+         */
+        private static function splitColumns(array $blocks, int $cols): array
+        {
+            $cols = max(1, $cols);
+            if ($cols === 1 || $blocks === []) {
+                return [$blocks];
+            }
+
+            $total = 0;
+            foreach ($blocks as $block) {
+                $total += str_word_count(wp_strip_all_tags((string) $block['text']));
+            }
+
+            $target = (int) ceil($total / $cols);
+            $columns = [];
+            $index = 0;
+            $count = 0;
+            $columns[$index] = [];
+
+            foreach ($blocks as $block) {
+                $words = str_word_count(wp_strip_all_tags((string) $block['text']));
+                if ($index < ($cols - 1) && $count > 0 && $count >= $target) {
+                    $index++;
+                    $count = 0;
+                    $columns[$index] = [];
+                }
+                $columns[$index][] = $block;
+                $count += $words;
+            }
+
+            return $columns;
+        }
+
+        /**
+         * @return array<string, array<string, mixed>>
+         */
+        public static function ads(): array
+        {
+            $path = dirname(__DIR__).'/issues/ads.php';
+            if (! is_readable($path)) {
+                return [];
+            }
+            $ads = require $path;
+
+            return is_array($ads) ? $ads : [];
         }
 
         /**

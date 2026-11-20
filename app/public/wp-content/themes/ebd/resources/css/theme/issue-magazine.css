@@ -1,0 +1,598 @@
+/**
+ * Print-like issue layouts.
+ * Desktop (>= 64rem) stays inside the spread. Below that, columns stack.
+ */
+
+.issue-layout.mag {
+  background: var(--color-gray);
+  color: var(--color-body);
+}
+
+.issue-layout.mag h1,
+.issue-layout.mag h2,
+.issue-layout.mag h3 {
+  margin: 0 !important;
+  color: inherit;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.05;
+}
+
+.issue-layout.mag h1 {
+  font-size: clamp(1.45rem, 3.6vh, 2.7rem);
+}
+
+.mag {
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  min-height: 0;
+  flex-direction: column;
+  gap: 0.45rem;
+  overflow: hidden;
+  padding: clamp(0.7rem, 1.8vh, 1.2rem) clamp(0.9rem, 2vw, 1.6rem);
+}
+
+.mag-kicker {
+  margin: 0;
+  color: var(--color-primary-dark);
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.mag-rule {
+  width: 2.4rem;
+  height: 1px;
+  margin: 0.25rem 0 0.15rem;
+  border: 0;
+  background: var(--color-primary);
+}
+
+.mag-stand {
+  margin: 0.2rem 0 0.15rem !important;
+  max-width: 38rem;
+  font-family: var(--font-heading);
+  font-size: clamp(0.95rem, 2vh, 1.2rem);
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.mag-by,
+.mag-sign span,
+.mag-foot,
+.mag-cover__note,
+.mag-opener__media p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.mag-cols {
+  display: grid;
+  min-height: 0;
+  flex: 1 1 auto;
+  grid-template-columns: repeat(var(--mag-cols, 2), minmax(0, 1fr));
+  gap: 0 1rem;
+}
+
+.mag-col {
+  min-width: 0;
+  overflow: hidden;
+  border-left: 1px solid var(--color-line);
+  padding-left: 0.75rem;
+  font-size: 0.84rem;
+  line-height: 1.38;
+}
+
+.mag-col:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.mag-col p,
+.mag-col h2,
+.mag-col h3,
+.mag-letter p {
+  margin: 0 0 0.45rem;
+}
+
+.mag-col h2,
+.mag-letter h2 {
+  font-size: 1rem;
+}
+
+.mag-drop::first-letter {
+  float: left;
+  padding: 0.05rem 0.35rem 0 0;
+  color: var(--color-secondary);
+  font-family: var(--font-heading);
+  font-size: 2.7rem;
+  line-height: 0.75;
+}
+
+.mag-foot {
+  display: flex;
+  flex: none;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 0.2rem;
+  padding-top: 0.3rem;
+  border-top: 1px solid var(--color-line);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mag-foot a {
+  color: var(--color-primary-dark);
+}
+
+.mag--opener,
+.mag--half,
+.mag--quote {
+  display: grid;
+  padding: 0;
+  gap: 0;
+}
+
+.mag--opener,
+.mag--half {
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+}
+
+.mag--quote {
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+}
+
+.mag-opener__copy,
+.mag-half__copy,
+.mag--quote .mag-half__copy {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: clamp(0.7rem, 1.8vh, 1.15rem);
+}
+
+.mag-opener__media,
+.mag-half__ad,
+.mag-banner__media {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--color-light);
+}
+
+.mag-opener__media img,
+.mag-banner__media img,
+.mag-cover img,
+.mag-framed__stage img,
+.mag-brands__grid img,
+.mag-people img,
+.ad img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mag-opener__media p {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.5rem;
+  left: 0.6rem;
+  color: var(--color-on-dark);
+}
+
+.mag--banner {
+  display: grid;
+  padding: 0;
+  grid-template-rows: minmax(0, 0.34fr) minmax(0, 0.66fr);
+}
+
+.mag-banner__copy {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: clamp(0.65rem, 1.5vh, 1rem) clamp(0.8rem, 2vw, 1.4rem);
+}
+
+.mag-pull {
+  display: flex;
+  margin: 0;
+  align-items: center;
+  padding: clamp(1rem, 3vh, 2rem);
+  background: var(--color-secondary);
+  color: var(--color-on-dark);
+}
+
+.mag-pull p {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 3vh, 2.15rem);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.mag-cover {
+  position: relative;
+  padding: 0;
+  color: var(--color-on-dark);
+  background: var(--color-black);
+}
+
+.mag-cover picture,
+.mag-framed__stage picture {
+  position: absolute;
+  inset: 0;
+}
+
+.mag-cover__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(8 8 8 / 0.82) 0%, rgb(8 8 8 / 0.25) 46%, rgb(8 8 8 / 0.35) 100%);
+}
+
+.mag-cover__mast,
+.mag-cover__lines {
+  position: absolute;
+  right: clamp(1rem, 3vw, 2rem);
+  left: clamp(1rem, 3vw, 2rem);
+  z-index: 1;
+}
+
+.mag-cover__mast {
+  top: clamp(0.8rem, 2vh, 1.4rem);
+}
+
+.mag-cover__ebd,
+.mag-colo .mag-cover__ebd {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 6vh, 3.6rem);
+  letter-spacing: 0.18em;
+  line-height: 0.9;
+}
+
+.mag-cover__lines {
+  bottom: clamp(0.8rem, 2vh, 1.4rem);
+}
+
+.mag-cover__lines h1 {
+  max-width: 12ch;
+  color: var(--color-on-dark);
+  font-size: clamp(2rem, 6vh, 4.2rem);
+}
+
+.mag-cover__lines ul {
+  margin: 0.6rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.82rem;
+}
+
+.mag-cover__lines li span {
+  display: inline-block;
+  min-width: 6.5rem;
+  color: var(--color-primary);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.mag-framed {
+  gap: 0.6rem;
+  background: var(--color-gray);
+}
+
+.mag-framed__mast p {
+  margin: 0;
+}
+
+.mag-framed__stage {
+  position: relative;
+  display: grid;
+  min-height: 0;
+  flex: 1;
+  align-items: end;
+  padding: 1rem;
+  color: var(--color-on-dark);
+}
+
+.mag-framed__stage div {
+  position: relative;
+  z-index: 1;
+  max-width: 16rem;
+}
+
+.mag-contents__list {
+  min-height: 0;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  columns: 2;
+  column-gap: 2rem;
+  list-style: none;
+}
+
+.mag-contents__list a {
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.28rem 0;
+  border-bottom: 1px solid var(--color-line);
+  color: inherit;
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+
+.mag-contents__list a span:first-child {
+  color: var(--color-primary-dark);
+  font-variant-numeric: tabular-nums;
+}
+
+.mag-letter {
+  min-height: 0;
+  overflow: hidden;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.mag-sign {
+  margin-top: 0.4rem;
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+}
+
+.mag-sign span {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ad {
+  position: relative;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--color-secondary);
+  color: var(--color-on-dark);
+}
+
+.ad picture {
+  position: absolute;
+  inset: 0;
+}
+
+.ad__panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: 100%;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+  background: linear-gradient(to top, rgb(8 8 8 / 0.78), rgb(8 8 8 / 0.05) 55%);
+}
+
+.ad--panel .ad__panel {
+  width: min(46%, 18rem);
+  height: 100%;
+  justify-content: center;
+  background: rgb(17 17 17 / 0.78);
+  clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+}
+
+.ad--poster {
+  background: var(--color-gray);
+  color: var(--color-secondary);
+}
+
+.ad--poster picture {
+  width: 42%;
+  left: auto;
+}
+
+.ad--poster .ad__panel {
+  width: 58%;
+  justify-content: center;
+  background: var(--color-gray);
+  color: var(--color-secondary);
+}
+
+.ad__flag {
+  margin: 0 0 0.4rem;
+  color: var(--color-primary);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.ad__mark {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  letter-spacing: 0.12em;
+}
+
+.ad__brand {
+  margin: 0.1rem 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3vh, 2.2rem);
+  line-height: 1;
+}
+
+.ad__tag {
+  margin: 0.35rem 0;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-style: italic;
+}
+
+.ad ul {
+  margin: 0.2rem 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ad__url {
+  margin: 0.45rem 0 0;
+  font-size: 0.75rem;
+}
+
+.mag-brands__grid,
+.mag-people ul {
+  display: grid;
+  min-height: 0;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  gap: 0.6rem;
+  list-style: none;
+}
+
+.mag-brands__grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mag-people ul {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.mag-brands__grid li,
+.mag-people li {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mag-brands__grid picture,
+.mag-people picture,
+.mag-people__empty {
+  display: block;
+  min-height: 0;
+  flex: 1;
+  overflow: hidden;
+  background: var(--color-light);
+}
+
+.mag-brands__grid img,
+.mag-people img {
+  height: 100%;
+}
+
+.mag-people__empty {
+  display: grid;
+  place-items: center;
+  padding: 0.4rem;
+  border: 1px solid var(--color-line);
+  color: var(--color-muted);
+  font-size: 0.68rem;
+  text-align: center;
+}
+
+.mag-brands__grid p,
+.mag-people p,
+.mag-people span,
+.mag-brands__grid span {
+  margin: 0;
+  font-size: 0.78rem;
+}
+
+.mag-colo__cols {
+  display: grid;
+  min-height: 0;
+  flex: 1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.mag-colo__cols ul {
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.mag-run h1 {
+  font-size: clamp(1.15rem, 2.4vh, 1.6rem);
+}
+
+@media (width < 64rem) {
+  .mag,
+  .mag--opener,
+  .mag--banner,
+  .mag--half,
+  .mag--quote,
+  .mag-cover,
+  .mag-framed,
+  .mag-adpage,
+  .mag-brands,
+  .mag-people,
+  .mag-colo {
+    height: auto;
+    min-height: calc(100dvh - var(--issue-nav-offset));
+    overflow: visible;
+  }
+
+  .mag--opener,
+  .mag--half,
+  .mag--quote,
+  .mag--banner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mag-opener__media,
+  .mag-banner__media,
+  .mag-half__ad,
+  .ad,
+  .mag-cover {
+    min-height: 18rem;
+  }
+
+  .mag-cols,
+  .mag-contents__list,
+  .mag-brands__grid,
+  .mag-people ul,
+  .mag-colo__cols {
+    display: block;
+    columns: 1;
+    overflow: visible;
+  }
+
+  .mag-col {
+    overflow: visible;
+    border-left: 0;
+    padding-left: 0;
+    margin-bottom: 0.8rem;
+  }
+
+  .mag-cover__mast,
+  .mag-cover__lines {
+    position: relative;
+    right: auto;
+    left: auto;
+    padding: 1rem;
+  }
+
+  .mag-cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+}
